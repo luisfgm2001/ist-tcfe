@@ -5,70 +5,68 @@ clear all
 
 pkg load symbolic
 
-syms t
-syms R
-syms C
-syms vi(t)
-syms vo(t)
-syms i(t)
+syms R1
+syms R2
+syms R3
+syms R4
+syms R5
+syms R6
+syms R7
+syms Va
+syms Id
+syms Kb
+syms Kc
+syms I1
+syms I2
 
-i(t)=C*diff(vo,t)
+R1 = 1.00455407009;
+R2 = 2.04596274404;
+R3 = 3.09144622662;
+R4 = 4.11831176554;
+R5 = 3.01223930062;
+R6 = 2.09613044241;
+R7 = 1.04911840913;
+Va = 5.24627171439;
+Id = 1.01890083211;
+Kb = 7.12576427883;
+Kc = 8.23427638445;
 
-printf("\n\nKVL equation:\n");
+A = [Kb*R3,Kb*R3-1,0,0;0,0,0,1;R1+R3+R4,R3,-R4,0;-R4,0,R4+R6+R7-Kc,0];
 
-vi(t) = R*i(t)+vo(t)
+B = [0;Id;Va;0];
 
-syms vo_n(t) %natural solution
-syms vo_f(t) %forced solution
+printf("Método das malhas\n");
 
-printf("\n\nSolution is of the form");
+output_precision(12);
 
-v(t) = vo_n(t) + vo_f(t)
+I1 = (A\B)(1)
+I2 = (A\B)(2)
+I3 = (A\B)(3)
+I4 = (A\B)(4)
 
-printf("\n\nNatural solution:\n");
-syms A
-syms wn
+C = [1,0,0,-1,0,0,0;0,0,0,-Kc/R6,1,0,Kc/R6;1/R1,-1/R1-1/R2-1/R3,1/R2,0,1/R3,0,0;0,-1/R2-Kb,1/R2,0,Kb,0,0;0,-Kb,0,0,1/R5+Kb,-1/R5,0;0,0,0,1/R6,0,0,-1/R6-1/R7;0,1/R3,0,1/R4,-1/R3-1/R4-1/R5,1/R5,1/R7];
 
-vi(t) = 0 %no excitation
-i_n(t) = C*diff(vo_n, t)
+D = [Va;0;0;0;-Id;0;Id];
 
+printf("\n\nMétodo dos nós\n");
 
-printf("\n\n Natural solution is of the form");
-vo_n(t) = A*exp(wn*t)
+V1 = (C\D)(1)
+V2 = (C\D)(2)
+V3 = (C\D)(3)
+V4 = (C\D)(4)
+V5 = (C\D)(5)
+V6 = (C\D)(6)
+V7 = (C\D)(7)
 
-R*i_n(t)+vo_n(t) == 0
+file = fopen("mesh.tex", "w");
 
-R*C*wn*vo_n(t)+vo_n(t) == 0
+fprintf(file, "I1 & %f  \\\\ \\hline\nI2 & %f \\\\ \\hline\nI3 & %f \\\\ \\hline\nI4 & %f \\\\ \\hline\n", I1, I2, I3, I4);
 
-R*C*wn+1==0
+fclose(file);
 
-solve(ans, wn)
+file = fopen("node.tex", "w");
 
+fprintf(file, "V1 & %f  \\\\ \\hline\nV2 & %f \\\\ \\hline\nV3 & %f \\\\ \\hline\nV4 & %f \\\\ \\hline\nV5 & %f  \\\\ \\hline\nV6 & %f \\\\ \\hline\nV7 & %f \\\\ \\hline\n", V1, V2, V3, V4, V5, V6, V7);
 
-%%EXAMPLE NUMERIC COMPUTATIONS
+fclose(file);
 
-R=1e3 %Ohm
-C=100e-9 %F
-
-f = 1000 %Hz
-w = 2*pi*f; %rad/s
-
-%time axis: 0 to 10ms with 1us steps
-t=0:1e-6:10e-3; %s
-
-Zc = 1/(j*w*C)
-Cgain = Zc/(R+Zc)
-Gain = abs(Cgain)
-Phase = angle(Cgain)
-
-vi = 1*cos(w*t);
-vo = Gain*cos(w*t+Phase);
-
-hf = figure ();
-plot (t*1000, vi, "g");
-hold on;
-plot (t*1000, vo, "b");
-
-xlabel ("t[ms]");
-ylabel ("vi(t), vo(t) [V]");
-print (hf, "forced.eps", "-depsc");
