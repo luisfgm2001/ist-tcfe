@@ -45,7 +45,7 @@ R7 n8 0 1.04911840913
 
 .control
 
-set numdgt = 12;
+set numdgt = 16;
 
 op
 

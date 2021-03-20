@@ -37,7 +37,8 @@ B = [0;Id;Va;0];
 
 printf("Método das malhas\n");
 
-output_precision(12);
+format short e;
+output_precision(16);
 
 I1 = (A\B)(1)
 I2 = (A\B)(2)
@@ -58,15 +59,16 @@ V5 = (C\D)(5)
 V6 = (C\D)(6)
 V7 = (C\D)(7)
 
+
 file = fopen("mesh.tex", "w");
 
-fprintf(file, "I1 & %f  \\\\ \\hline\nI2 & %f \\\\ \\hline\nI3 & %f \\\\ \\hline\nI4 & %f \\\\ \\hline\n", I1, I2, I3, I4);
+fprintf(file, "I1 & %0.15E  \\\\ \\hline\nI2 & %0.15E \\\\ \\hline\nI3 & %0.15E \\\\ \\hline\nI4 & %0.15E \\\\ \\hline\n", I1, I2, I3, I4);
 
 fclose(file);
 
 file = fopen("node.tex", "w");
 
-fprintf(file, "V1 & %f  \\\\ \\hline\nV2 & %f \\\\ \\hline\nV3 & %f \\\\ \\hline\nV4 & %f \\\\ \\hline\nV5 & %f  \\\\ \\hline\nV6 & %f \\\\ \\hline\nV7 & %f \\\\ \\hline\n", V1, V2, V3, V4, V5, V6, V7);
+fprintf(file, "V1 & %0.15E  \\\\ \\hline\nV2 & %0.15E \\\\ \\hline\nV3 & %0.15E \\\\ \\hline\nV4 & %0.15E \\\\ \\hline\nV5 & %0.15E  \\\\ \\hline\nV6 & %0.15E \\\\ \\hline\nV7 & %0.15E \\\\ \\hline\n", V1, V2, V3, V4, V5, V6, V7);
 
 fclose(file);
 
