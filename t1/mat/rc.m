@@ -72,3 +72,60 @@ fprintf(file, "V1 & %0.15E  \\\\ \\hline\nV2 & %0.15E \\\\ \\hline\nV3 & %0.15E 
 
 fclose(file);
 
+syms n1;
+syms n2;
+syms n3;
+syms n4;
+syms n5;
+syms n6;
+syms n7;
+
+n5 = -I3*Kc;
+n7 = -R7*I3;
+n4 = n7-R6*I3;
+n1 = n4 + Va;
+n2 = n1-R1*I1;
+n3 = n2+R2*I2;
+n6 = n5-(I2-I4)*R5;
+
+file = fopen("meshtab.tex", "w");
+
+fprintf(file, "@gb[i] & %0.15E \\\\ \\hline\n", I2);
+fprintf(file, "@id[current] & %0.15E \\\\ \\hline\n", Id);
+fprintf(file, "@r1[i] & %0.15E \\\\ \\hline\n", I1);
+fprintf(file, "@r2[i] & %0.15E \\\\ \\hline\n", -I2);
+fprintf(file, "@r3[i] & %0.15E \\\\ \\hline\n", I1+I2);
+fprintf(file, "@r4[i] & %0.15E \\\\ \\hline\n", I3-I1);
+fprintf(file, "@r5[i] & %0.15E \\\\ \\hline\n", I2-I4);
+fprintf(file, "@r6[i] & %0.15E \\\\ \\hline\n", -I3);
+fprintf(file, "@r7[i] & %0.15E \\\\ \\hline\n", -I3);
+fprintf(file, "n1 & %0.15E \\\\ \\hline\n", n1);
+fprintf(file, "n2 & %0.15E \\\\ \\hline\n", n2);
+fprintf(file, "n3 & %0.15E \\\\ \\hline\n", n3);
+fprintf(file, "n4 & %0.15E \\\\ \\hline\n", n4);
+fprintf(file, "n5 & %0.15E \\\\ \\hline\n", n5);
+fprintf(file, "n6 & %0.15E \\\\ \\hline\n", n6);
+fprintf(file, "n7 & %0.15E \\\\ \\hline\n", n7);
+
+fclose(file);
+
+file = fopen("nodetab.tex", "w");
+
+fprintf(file, "@gb[i] & %0.15E \\\\ \\hline\n", Kb*(V2-V5));
+fprintf(file, "@id[current] & %0.15E \\\\ \\hline\n", Id);
+fprintf(file, "@r1[i] & %0.15E \\\\ \\hline\n", (V1-V2)/R1);
+fprintf(file, "@r2[i] & %0.15E \\\\ \\hline\n", -(V3-V2)/R2);
+fprintf(file, "@r3[i] & %0.15E \\\\ \\hline\n", (V2-V5)/R3);
+fprintf(file, "@r4[i] & %0.15E \\\\ \\hline\n", -(V5-V4)/R4);
+fprintf(file, "@r5[i] & %0.15E \\\\ \\hline\n", (V5-V6)/R5);
+fprintf(file, "@r6[i] & %0.15E \\\\ \\hline\n", (V4-V7)/R6);
+fprintf(file, "@r7[i] & %0.15E \\\\ \\hline\n", V7/R7);
+fprintf(file, "n1 & %0.15E \\\\ \\hline\n", V1);
+fprintf(file, "n2 & %0.15E \\\\ \\hline\n", V2);
+fprintf(file, "n3 & %0.15E \\\\ \\hline\n", V3);
+fprintf(file, "n4 & %0.15E \\\\ \\hline\n", V4);
+fprintf(file, "n5 & %0.15E \\\\ \\hline\n", V5);
+fprintf(file, "n6 & %0.15E \\\\ \\hline\n", V6);
+fprintf(file, "n7 & %0.15E \\\\ \\hline\n", V7);
+
+fclose(file);
