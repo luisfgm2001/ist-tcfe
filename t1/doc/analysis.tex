@@ -1,67 +1,166 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
+theoretically, using mesh and nodal methods.
 
-\section{Time response}
+\subsection{Mesh Analysis}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+Mesh analysis is a well-organized method for solving a circuit, which makes use of Kirchhoff’s Voltage Law and Ohm's Law to deduce a set of equations guaranteed to be solvable if the circuit has a solution.
 
-\begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
-  \label{eq:kvl}
-\end{equation}
+In order to solve the circuit in study resorting to this method, we started by arbitrarily assigning mesh currents in the essential meshes, $I_1$ and $I_3$ looping in a clockwise direction and $I_2$ and $I_4$ in an anti-clockwise direction, as shown in the Figure~\ref{fig:mesh}.
 
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
-\begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
-\end{equation}
+\vspace{-8mm}
 
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
-\end{equation}
-
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
-
-\begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
-\end{equation}
-
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
-
-\begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
-\end{equation}
-
-\lipsum[1-1]
-
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{mesh_method.pdf}
+\caption{Mesh Analysis.}
+\label{fig:mesh}
 \end{figure}
 
-\section{Frequency response}
+Hence, applying KVL to meshes $1$, $2$ and $3$ and equaling $I_4$ to current source value $I_d$, we deduced the following system of linear equations, whose solution is the set of assigned currents:
 
-\lipsum[1-1]
+\vspace{1mm}
+
+\[
+{\begin{bmatrix}
+K_b R_3 & K_b R_3 - 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+R_1 + R_3 + R_4 & R_3 & -R_4 & 0\\
+-R_4 & 0 & R_4 + R_6 + R_7 - K_c & 0\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+I_1\\
+I_2\\
+I_3\\
+I_4\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+0\\
+I_d\\
+V_a\\
+0\\
+            \end{bmatrix}
+            }
+\]
+
+
+\vspace{1mm}
+
+The solution vector for this system was obtained using the Octave maths tool and is presented in Table~\ref{tab:meshvec}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A]} \\ \hline
+    \input{../mat/mesh}
+  \end{tabular}
+  \caption{Solution vector for assigned currents.}
+  \label{tab:meshvec}
+\end{table}
+
+From these data, we were able to determine the rest of the circuit's characteristics, which are shown in Table~\ref{tab:meshtab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../mat/meshtab}
+  \end{tabular}
+  \caption{Circuit's characteristics using mesh method. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:meshtab}
+\end{table}
+
+
+\subsection{Node Analysis}
+
+Similarly, node analysis is used to deduce a set of equations to determine the nodes potential in an electric circuit, this time using Kirchhoff’s Current Law and Ohm's Law.
+
+In order to solve the circuit in study resorting to this method, we applied KCL in nodes not connected to voltage sources, $2$, $3$, $6$ and $7$, and wrote additional equations for nodes related by voltage sources, $1$, $4$ and $5$. This way, we were able to write 6 linearly independent equations, for what we needed one more to determine all the seven variables (excluding GND). Therefore, we managed to relate nodes $5$ and GND using KCL to get the last equation needed, and obtained the following system of linear equations, whose solution is the set of nodes potentials:
+
+\[
+{\begin{bmatrix}
+1 & 0 & 0 & -1 & 0 & 0 & 0\\
+0 & 0 & 0 & -\frac{K_c}{R_6} & 1 & 0 & \frac{K_c}{R_6}\\
+\frac{1}{R_1} & -\frac{1}{R_1}-\frac{1}{R_2}-\frac{1}{R_3} & \frac{1}{R_2} & 0 & \frac{1}{R_3} & 0 & 0\\
+0 & -\frac{1}{R_2}-K_b & \frac{1}{R_2} & 0 & K_b & 0 & 0\\
+0 & -K_b & 0 & 0 & \frac{1}{R_5}+K_b & -\frac{1}{R_5} & 0\\
+0 & 0 & 0 & \frac{1}{R_6} & 0 & 0 & -\frac{1}{R_6}-\frac{1}{R_7}\\
+0 & \frac{1}{R_3} & 0 & \frac{1}{R_4} & -\frac{1}{R_3}-\frac{1}{R_4}-\frac{1}{R_5} & \frac{1}{R_5} & \frac{1}{R_7}\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+V_1\\
+V_2\\
+V_3\\
+V_4\\
+V_5\\
+V_6\\
+V_7\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+V_a\\
+0\\
+0\\
+0\\
+-I_d\\
+0\\
+I_d\\
+            \end{bmatrix}
+            }
+\]
+
+Since GND potential isn't an unknown variable, taking the value 0, we excluded it from this system, in order to simplify the calculations.
+
+Once again, the solution vector for this system was obtained using Octave. The results are shown in Table ~\ref{tab:nodetab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/node}
+  \end{tabular}
+  \caption{Solution vector for nodes' potentials.}
+  \label{tab:nodetab}
+\end{table}
+
+Like above, we were able to calculate the rest of the circuit's characteristics, which are presented in Table~\ref{tab:nodetab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../mat/nodetab}
+  \end{tabular}
+  \caption{Circuit's characteristics using nodal method. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:nodetab}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

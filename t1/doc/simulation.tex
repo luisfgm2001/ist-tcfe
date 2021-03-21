@@ -1,13 +1,11 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
 
-\subsection{Operating Point Analysis}
+In addition to theoretical analysis, we computed the characteristics of the circuit using Ngspice. The simulated operating point results are then shown in Table~\ref{tab:op}.
 
-Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. Compared to the theoretical analysis results, one notices the
-following differences: describe and explain the differences.
+\vspace{1mm}
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
@@ -20,68 +18,12 @@ following differences: describe and explain the differences.
   \label{tab:op}
 \end{table}
 
-\lipsum[1-1]
+Taking into account that the voltage source $V_c$ is controlled by the current $I_c$, which flows through resistor $R_6$, and Ngspice requires a voltage source with current $I_c$ to implement this component, we considered an additional voltage source of $0V$ in series with the resistor $R_6$, working as an amperemeter measuring the aforementioned current (Table~\ref{fig:node8}). That's the reason an additional node (8) appears in the table above.
 
-
-\subsection{Transient Analysis}
-
-Figure~\ref{fig:trans} shows the simulated transient analysis results for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{trans.pdf}
-\caption{Transient output voltage}
-\label{fig:trans}
+\begin{figure}[H] \centering
+\includegraphics[width=0.55\linewidth]{node8.pdf}
+\caption{Additional voltage source.}
+\label{fig:node8}
 \end{figure}
 
-\lipsum[1-1]
-
-
-
-\subsection{Frequency Analysis}
-
-\subsubsection{Magnitude Response}
-
-Figure~\ref{fig:acm} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acm.pdf}
-\caption{Magnitude response}
-\label{fig:acm}
-\end{figure}
-
-\lipsum[1-1]
-
-\subsubsection{Phase Response}
-
-Figure~\ref{fig:acp} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{acp.pdf}
-\caption{Phase response}
-\label{fig:acp}
-\end{figure}
-
-\lipsum[1-1]
-
-\subsubsection{Input Impedance}
-
-Figure~\ref{fig:zim} shows the magnitude of the frequency response for the
-circuit under analysis. Compared to the theoretical analysis results, one
-notices the following differences: describe and explain the differences.
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.6\linewidth]{zim.pdf}
-\caption{Input impedance}
-\label{fig:zim}
-\end{figure}
-
-\lipsum[1-1]
-
-
-
+Compared to the theoretical analysis results, one notices that the values only differ from the 13th decimal place onwards for both mesh and nodal method. Taking into account that the previously known characteristics of the circuit only had 11 decimal places, it's clear that these results match with great precision with the ones obtained by simulation.
