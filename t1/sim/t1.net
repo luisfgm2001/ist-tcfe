@@ -54,7 +54,27 @@ echo  "Operating point"
 echo "********************************************"
 
 echo  "op_TAB"
-print all
+*print all
+print @gb[i]
+set numdgt = 15;
+print @id[current]
+print @r1[i]
+print @r2[i]
+set numdgt = 16;
+print @r3[i]
+print @r4[i]
+print @r5[i]
+set numdgt = 15;
+print @r6[i]
+print @r7[i]
+print n1
+print n2
+print n3
+print n4
+print n5
+print n6
+print n7
+print n8
 echo  "op_END"
 
 quit
