@@ -16,8 +16,6 @@ syms Va
 syms Id
 syms Kb
 syms Kc
-syms I1
-syms I2
 
 R1 = 1.00455407009;
 R2 = 2.04596274404;
@@ -127,5 +125,21 @@ fprintf(file, "n4 & %0.15E \\\\ \\hline\n", V4);
 fprintf(file, "n5 & %0.15E \\\\ \\hline\n", V5);
 fprintf(file, "n6 & %0.15E \\\\ \\hline\n", V6);
 fprintf(file, "n7 & %0.15E \\\\ \\hline\n", V7);
+
+fclose(file);
+
+file = fopen("datatab.tex", "w");
+
+fprintf(file, "R1 & %0.11f k$\\Omega$ \\\\ \\hline\n", R1);
+fprintf(file, "R2 & %0.11f k$\\Omega$ \\\\ \\hline\n", R2);
+fprintf(file, "R3 & %0.11f k$\\Omega$ \\\\ \\hline\n", R3);
+fprintf(file, "R4 & %0.11f k$\\Omega$ \\\\ \\hline\n", R4);
+fprintf(file, "R5 & %0.11f k$\\Omega$ \\\\ \\hline\n", R5);
+fprintf(file, "R6 & %0.11f k$\\Omega$ \\\\ \\hline\n", R6);
+fprintf(file, "R7 & %0.11f k$\\Omega$ \\\\ \\hline\n", R7);
+fprintf(file, "Va & %0.11f V \\\\ \\hline\n", Va);
+fprintf(file, "Id & %0.11f mA \\\\ \\hline\n", Id);
+fprintf(file, "Kb & %0.11f mS \\\\ \\hline\n", Kb);
+fprintf(file, "Kc & %0.11f k$\\Omega$ \\\\ \\hline\n", Kc);
 
 fclose(file);

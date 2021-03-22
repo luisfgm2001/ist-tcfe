@@ -4,11 +4,23 @@
 % state the learning objective 
 The objective of this laboratory assignment is to study a circuit containing eight nodes numbered from 1 to 7, plus GND. In the present circuit, we can find seven resistors, $R_1$ to $R_7$, one voltage source, $V_a$, one current source, $I_d$, one voltage controlled current source, $I_b$ and, finally, one current controlled voltage source, $V_c$, connected as seen in Figure~\ref{fig:t1}.
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the circuit using the mesh method, as well as the nodal method and, in Section~\ref{sec:simulation}, we compare these results to the ones obtained by simulation using Ngspice. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions.
-
-\begin{figure}[h] \centering
+\begin{figure}[H] \centering
 \includegraphics[width=0.8\linewidth]{t1.pdf}
 \caption{Electric circuit.}
 \label{fig:t1}
 \end{figure}
 
+The previously known characteristics of the circuit are summarized in Table~\ref{tab:datatab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/datatab}
+  \end{tabular}
+  \caption{Previously known characteristics.}
+  \label{tab:datatab}
+\end{table}
+
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the circuit using the mesh method, as well as the nodal method and, in Section~\ref{sec:simulation}, we compare these results to the ones obtained by simulation using Ngspice. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions.
