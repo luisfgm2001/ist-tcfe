@@ -1,0 +1,166 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
+theoretically, using mesh and nodal methods.
+
+\subsection{Mesh Analysis}
+
+Mesh analysis is a well-organized method for solving a circuit, which makes use of Kirchhoff’s Voltage Law and Ohm's Law to deduce a set of equations guaranteed to be solvable if the circuit has a solution.
+
+In order to solve the circuit in study resorting to this method, we started by arbitrarily assigning mesh currents in the essential meshes, $I_1$ and $I_3$ looping in a clockwise direction and $I_2$ and $I_4$ in an anti-clockwise direction, as shown in the Figure~\ref{fig:mesh}.
+
+\vspace{-8mm}
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{mesh_method.pdf}
+\caption{Mesh Analysis.}
+\label{fig:mesh}
+\end{figure}
+
+Hence, applying KVL to meshes $1$, $2$ and $3$ and equaling $I_4$ to current source value $I_d$, we deduced the following system of linear equations, whose solution is the set of assigned currents:
+
+\vspace{1mm}
+
+\[
+{\begin{bmatrix}
+K_b R_3 & K_b R_3 - 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+R_1 + R_3 + R_4 & R_3 & -R_4 & 0\\
+-R_4 & 0 & R_4 + R_6 + R_7 - K_c & 0\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+I_1\\
+I_2\\
+I_3\\
+I_4\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+0\\
+I_d\\
+V_a\\
+0\\
+            \end{bmatrix}
+            }
+\]
+
+
+\vspace{1mm}
+
+The solution vector for this system was obtained using the Octave maths tool and is presented in Table~\ref{tab:meshvec}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA]} \\ \hline
+    \input{../mat/mesh}
+  \end{tabular}
+  \caption{Solution vector for assigned currents.}
+  \label{tab:meshvec}
+\end{table}
+
+From these data, we were able to determine the rest of the circuit's characteristics, which are shown in Table~\ref{tab:meshtab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../mat/meshtab}
+  \end{tabular}
+  \caption{Circuit's characteristics using mesh method. A variable preceded by @ is of type {\em current}
+    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:meshtab}
+\end{table}
+
+
+\subsection{Node Analysis}
+
+Similarly, node analysis is used to deduce a set of equations to determine the nodes potential in an electric circuit, this time using Kirchhoff’s Current Law and Ohm's Law.
+
+In order to solve the circuit in study resorting to this method, we applied KCL in nodes not connected to voltage sources, $2$, $3$, $6$ and $7$, and wrote additional equations for nodes related by voltage sources, $1$, $4$ and $5$. This way, we were able to write 6 linearly independent equations, for what we needed one more to determine all the seven variables (excluding GND). Therefore, we managed to relate nodes $5$ and GND using KCL to get the last equation needed, and obtained the following system of linear equations, whose solution is the set of nodes potentials:
+
+\[
+{\begin{bmatrix}
+1 & 0 & 0 & -1 & 0 & 0 & 0\\
+0 & 0 & 0 & -\frac{K_c}{R_6} & 1 & 0 & \frac{K_c}{R_6}\\
+\frac{1}{R_1} & -\frac{1}{R_1}-\frac{1}{R_2}-\frac{1}{R_3} & \frac{1}{R_2} & 0 & \frac{1}{R_3} & 0 & 0\\
+0 & -\frac{1}{R_2}-K_b & \frac{1}{R_2} & 0 & K_b & 0 & 0\\
+0 & -K_b & 0 & 0 & \frac{1}{R_5}+K_b & -\frac{1}{R_5} & 0\\
+0 & 0 & 0 & \frac{1}{R_6} & 0 & 0 & -\frac{1}{R_6}-\frac{1}{R_7}\\
+0 & \frac{1}{R_3} & 0 & \frac{1}{R_4} & -\frac{1}{R_3}-\frac{1}{R_4}-\frac{1}{R_5} & \frac{1}{R_5} & \frac{1}{R_7}\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+V_1\\
+V_2\\
+V_3\\
+V_4\\
+V_5\\
+V_6\\
+V_7\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+V_a\\
+0\\
+0\\
+0\\
+-I_d\\
+0\\
+I_d\\
+            \end{bmatrix}
+            }
+\]
+
+Since GND potential isn't an unknown variable, taking the value 0, we excluded it from this system, in order to simplify the calculations.
+
+Once again, the solution vector for this system was obtained using Octave. The results are shown in Table ~\ref{tab:nodetab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/node}
+  \end{tabular}
+  \caption{Solution vector for nodes' potentials.}
+  \label{tab:nodetab}
+\end{table}
+
+Like above, we were able to calculate the rest of the circuit's characteristics, which are presented in Table~\ref{tab:nodetab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../mat/nodetab}
+  \end{tabular}
+  \caption{Circuit's characteristics using nodal method. A variable preceded by @ is of type {\em current}
+    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:nodetab}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
