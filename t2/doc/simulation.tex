@@ -1,0 +1,29 @@
+\section{Simulation Analysis}
+\label{sec:simulation}
+
+In addition to theoretical analysis, we computed the characteristics of the circuit using Ngspice. The simulated operating point results are then shown in Table~\ref{tab:op}.
+
+\vspace{1mm}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [mA or V]} \\ \hline
+    \input{../sim/op_tab}
+  \end{tabular}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op}
+\end{table}
+
+Taking into account that the voltage source $V_c$ is controlled by the current $I_c$, which flows through resistor $R_6$, and Ngspice requires a voltage source with current $I_c$ to implement this component, we considered an additional voltage source of $0V$ in series with the resistor $R_6$, working as an amperemeter measuring the aforementioned current (Table~\ref{fig:node8}). That's the reason an additional node (8) appears in the table above.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.55\linewidth]{node8.pdf}
+\caption{Additional voltage source.}
+\label{fig:node8}
+\end{figure}
+
+Compared to the theoretical analysis results, one notices that the values only differ from the 13th decimal place onwards for both mesh and nodal method. Taking into account that the previously known characteristics of the circuit only had 11 decimal places, it's clear that these results match with great precision with the ones obtained by simulation.
