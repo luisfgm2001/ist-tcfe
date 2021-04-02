@@ -92,6 +92,14 @@ printf("\n\nMétodo dos nós (to determine Req)\n");
 
 Vx = V6-V8;
 
+
+
+file = fopen("../sim/voltages68_2.txt", "w");
+
+fprintf(file, "Vc n6 n8 %f", Vx);
+
+fclose(file);
+
 A = [1,0,0,0,0,0,0;-1/R1,1/R1+1/R2+1/R3,-1/R2,-1/R3,0,0,0;0,1/R2+Kb,-1/R2,-Kb,0,0,0;0,0,0,0,0,1/R6+1/R7,-1/R7;0,0,0,1,0,Kd/R6,-1;0,0,0,0,1,0,-1;-1/R1,1/R1,0,1/R4,0,1/R6,0];
 
 B = [0;0;0;0;0;Vx;0];
@@ -104,9 +112,15 @@ V6 = (A\B)(5)
 V7 = (A\B)(6)
 V8 = (A\B)(7)
 
+file = fopen("../sim/voltages68_3.txt", "w");
+
+fprintf(file, ".ic V(n6)=%f V(n8)=%f", V6, V8);
+
+fclose(file);
+
 Ix = Kb*(V2-V5)+(V6-V5)/R5
 Req = Vx/Ix
-tau = Req*1e-3*C*1e6
+tau = Req*1e3*C*1e-6
 
 file = fopen("node2.tex", "w");
 

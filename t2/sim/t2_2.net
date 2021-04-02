@@ -18,7 +18,9 @@
 * forces current values to be saved
 .options savecurrents
 
-Vs n1 0 5.24627171439
+
+
+Vs n1 0 0
 
 R1 n1 n2 1.00455407009e3
 
@@ -36,9 +38,9 @@ R6 0 n7 2.09613044241e3
 
 VHd n7 nex 0 
 
-Hd n5 n8 VHd 8.23427638445e3
+Hc n5 n8 VHd 8.23427638445e3
 
-C n6 n8 1.01890083211-6
+.INCLUDE ./voltages68_2.txt
 
 R7 nex n8 1.04911840913e3
 
@@ -57,6 +59,7 @@ echo  "op_TAB"
 print all
 
 echo  "op_END"
+
 
 quit
 

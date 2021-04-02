@@ -18,7 +18,9 @@
 * forces current values to be saved
 .options savecurrents
 
-Vs n1 0 5.24627171439
+
+
+Vs n1 0 0.0 ac 1.0 sin(0 1 1k)
 
 R1 n1 n2 1.00455407009e3
 
@@ -38,31 +40,48 @@ VHd n7 nex 0
 
 Hd n5 n8 VHd 8.23427638445e3
 
-C n6 n8 1.01890083211-6
+C n6 n8 1.01890083211e-6
 
 R7 nex n8 1.04911840913e3
+
+.INCLUDE ./voltages68_3.txt
 
 
 .control
 
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
 set numdgt = 16;
 
-op
+echo "********************************************"
+echo  "Transient analysis"
+echo "********************************************"
+tran 1e-5 20e-3
+
+hardcopy trans4.ps v(n6) v(n1)
+echo trans4_FIG
 
 echo "********************************************"
-echo  "Operating point"
+echo  "Frequency analysis"
 echo "********************************************"
 
-echo  "op_TAB"
-print all
+ac dec 10 0.1 1MEG
 
-echo  "op_END"
+hardcopy ac5.ps db(v(n1)) db(v(n6))
+echo ac5_FIG
+
+
 
 quit
 
 .endc
-
-
 
 
 .end
