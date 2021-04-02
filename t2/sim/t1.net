@@ -58,7 +58,16 @@ print all
 
 echo  "op_END"
 
+op
+
+print Vs
+print all
+
 quit
+
 .endc
+
+
+
 
 .end
