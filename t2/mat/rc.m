@@ -17,17 +17,25 @@ syms C
 syms Kb
 syms Kd
 
-R1 = 1.00455407009;
-R2 = 2.04596274404;
-R3 = 3.09144622662;
-R4 = 4.11831176554;
-R5 = 3.01223930062;
-R6 = 2.09613044241;
-R7 = 1.04911840913;
+syms V1
+syms V2
+syms V3
+syms V5
+syms V6
+syms V7
+syms V8
+
+R1 = 1.00455407009e3;
+R2 = 2.04596274404e3;
+R3 = 3.09144622662e3;
+R4 = 4.11831176554e3;
+R5 = 3.01223930062e3;
+R6 = 2.09613044241e3;
+R7 = 1.04911840913e3;
 Vs = 5.24627171439;
-C = 1.01890083211;
-Kb = 7.12576427883;
-Kd = 8.23427638445;
+C = 1.01890083211e-6;
+Kb = 7.12576427883e-3;
+Kd = 8.23427638445e3;
 
 
 A = [1,0,0,0,0,0,0;-1/R1,1/R1+1/R2+1/R3,-1/R2,-1/R3,0,0,0;0,1/R2+Kb,-1/R2,-Kb,0,0,0;0,Kb,0,-1/R5-Kb,1/R5,0,0;0,0,0,0,0,1/R6+1/R7,-1/R7;0,0,0,1,0,Kd/R6,-1;-1/R1,1/R1,0,1/R4,0,1/R6,0];
@@ -43,6 +51,9 @@ V5 = (A\B)(4)
 V6 = (A\B)(5)
 V7 = (A\B)(6)
 V8 = (A\B)(7)
+
+syms V6men0
+V6men0 = V6
 
 
 
@@ -74,22 +85,23 @@ fclose(file);
 
 file = fopen("datatab.tex", "w");
 
-fprintf(file, "R1 & %0.11f k$\\Omega$ \\\\ \\hline\n", R1);
-fprintf(file, "R2 & %0.11f k$\\Omega$ \\\\ \\hline\n", R2);
-fprintf(file, "R3 & %0.11f k$\\Omega$ \\\\ \\hline\n", R3);
-fprintf(file, "R4 & %0.11f k$\\Omega$ \\\\ \\hline\n", R4);
-fprintf(file, "R5 & %0.11f k$\\Omega$ \\\\ \\hline\n", R5);
-fprintf(file, "R6 & %0.11f k$\\Omega$ \\\\ \\hline\n", R6);
-fprintf(file, "R7 & %0.11f k$\\Omega$ \\\\ \\hline\n", R7);
+fprintf(file, "R1 & %0.11f $\\Omega$ \\\\ \\hline\n", R1);
+fprintf(file, "R2 & %0.11f $\\Omega$ \\\\ \\hline\n", R2);
+fprintf(file, "R3 & %0.11f $\\Omega$ \\\\ \\hline\n", R3);
+fprintf(file, "R4 & %0.11f $\\Omega$ \\\\ \\hline\n", R4);
+fprintf(file, "R5 & %0.11f $\\Omega$ \\\\ \\hline\n", R5);
+fprintf(file, "R6 & %0.11f $\\Omega$ \\\\ \\hline\n", R6);
+fprintf(file, "R7 & %0.11f $\\Omega$ \\\\ \\hline\n", R7);
 fprintf(file, "Vs & %0.11f V \\\\ \\hline\n", Vs);
-fprintf(file, "C & %0.11f uF \\\\ \\hline\n", C);
-fprintf(file, "Kb & %0.11f mS \\\\ \\hline\n", Kb);
-fprintf(file, "Kd & %0.11f k$\\Omega$ \\\\ \\hline\n", Kd);
+fprintf(file, "C & %0.11f F \\\\ \\hline\n", C);
+fprintf(file, "Kb & %0.11f S \\\\ \\hline\n", Kb);
+fprintf(file, "Kd & %0.11f $\\Omega$ \\\\ \\hline\n", Kd);
 
 fclose(file);
 
 printf("\n\nMétodo dos nós (to determine Req)\n");
 
+syms Vx
 Vx = V6-V8;
 
 
@@ -118,9 +130,13 @@ fprintf(file, ".ic V(n6)=%f V(n8)=%f", V6, V8);
 
 fclose(file);
 
+syms Ix
+syms Req
+syms tau
+
 Ix = Kb*(V2-V5)+(V6-V5)/R5
 Req = Vx/Ix
-tau = Req*1e3*C*1e-6
+tau = Req*C
 
 file = fopen("node2.tex", "w");
 
@@ -147,6 +163,24 @@ fprintf(file, "n7 & %0.15E \\\\ \\hline\n", V7);
 fprintf(file, "n8 & %0.15E \\\\ \\hline\n", V8);
 
 fclose(file);
+
+
+t=0:1e-5:20e-3;
+
+syms V6nat
+V6nat = V6
+
+v6n = V6nat*exp(-t/tau);
+
+
+
+nat6fig = figure();
+plot(t*1000, v6n, "r");
+
+xlabel("t [ms]");
+ylabel("v6n(t) [V]");
+
+print(nat6fig, "natural6.eps", "-depsc");
 
 printf("\n\nMétodo dos nós (phasors)\n");
 
@@ -183,4 +217,93 @@ phi6 = angle(fV6)
 phi7 = angle(fV7)
 phi8 = angle(fV8)
 phix = angle(fVx)
+
+t=0:1e-5:20e-3;
+
+v6f = V6*cos(2*pi*1000*t+phi6);
+
+
+forced6fig = figure();
+plot(t*1000, v6f, "r");
+
+xlabel("t [ms]");
+ylabel("v6f(t) [V]");
+
+print(forced6fig, "forced6.eps", "-depsc");
+
+t=-5e-3:1e-5:20e-3;
+
+ramo1 = t<0;
+ramo2 = t>=0;
+
+v6(ramo1) = V6men0;
+v6(ramo2) = V6nat*exp(-t(ramo2)/tau)+V6*cos(2*pi*1000*t(ramo2)+phi6);
+
+ramo3 = t<=0;
+ramo4 = t>0;
+
+vs(ramo3) = Vs;
+vs(ramo4) = sin(2*pi*1000*t(ramo4));
+
+	
+alinea5fig = figure();
+plot(t*1000, v6, "r");
+hold on;
+plot(t*1000, vs, "b");
+
+xlabel("t [ms]");
+ylabel("v6(t), vs(t) [V]");
+
+print(alinea5fig, "alinea5.eps", "-depsc");
+
+f = 0.1;
+mult = power(10, 0.2);
+
+vetorv6 = ones(1, 7*5+1);
+vetorvs = zeros(1, 7*5+1);
+vetorvc = ones(1, 7*5+1);
+vetorlogf = ones(1, 7*5+1);
+vetorfase6 = ones(1, 7*5+1);
+vetorfases = ones(1, 7*5+1);
+vetorfasec = ones(1, 7*5+1);
+
+for i = 1:7*5+1
+	A = [1,0,0,0,0,0,0;-1/R1,1/R1+1/R2+1/R3,-1/R2,-1/R3,0,0,0;0,1/R2+Kb,-1/R2,-Kb,0,0,0;0,0,0,0,0,1/R6+1/R7,-1/R7;0,0,0,1,0,Kd/R6,-1;-1/R1,1/R1,0,1/R4,0,1/R6,0;0,Kb,0,-Kb-1/R5,1/R5+j*C*2*pi*f,0,-j*C*2*pi*f];
+	vetorv6(i) = 20*log10(norm((A\B)(5)));
+	vetorvc(i) = 20*log10(norm((A\B)(5)-(A\B)(7)));
+	vetorlogf(i) = log10(f);
+	f = f*mult;
+	vetorfase6(i) = angle((A\B)(5)*j)*180/pi;
+	vetorfases(i) = 0;
+	vetorfasec(i) = angle(((A\B)(5)-(A\B)(7))*j)*180/pi;
+endfor
+
+
+
+alinea6fig1 = figure();
+plot(vetorlogf, vetorv6, "r");
+hold on;
+plot(vetorlogf, vetorvc, "g");
+hold on;
+plot(vetorlogf, vetorvs, "b");
+
+xlabel("f [Hz]");
+ylabel("v6(f), vs(f), vc(f) [dB]");
+
+print(alinea6fig1, "alinea6_1.eps", "-depsc");
+
+
+
+alinea6fig2 = figure();
+plot(vetorlogf, vetorfase6, "r");
+hold on;
+plot(vetorlogf, vetorfasec, "g");
+hold on;
+plot(vetorlogf, vetorfases, "b");
+
+xlabel("f [Hz]");
+ylabel("phase_6(f), phase_s(f), phase_c(f) [dB]");
+
+print(alinea6fig2, "alinea6_2.eps", "-depsc");
+
 

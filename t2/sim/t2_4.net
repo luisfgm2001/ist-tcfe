@@ -74,8 +74,11 @@ echo "********************************************"
 
 ac dec 10 0.1 1MEG
 
-hardcopy ac5.ps db(v(n1)) db(v(n6))
-echo ac5_FIG
+hardcopy ac5mag.ps db(v(n1)) db(v(n6)) db(v(n6)-v(n8))
+echo ac5mag_FIG
+
+hardcopy ac5phase.ps vp(n1)*180/pi vp(n6)*180/pi phase(v(n6)-v(n8))*180/pi
+echo ac5phase_FIG
 
 
 
