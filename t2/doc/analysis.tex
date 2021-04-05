@@ -1,166 +1,273 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:t1} is analysed
-theoretically, using mesh and nodal methods.
+\subsection{Node Analysis (t<0s)}
+\label{subsec:nodeanalysis}
 
-\subsection{Mesh Analysis}
+%Similarly, node analysis is used to deduce a set of equations to determine the nodes potential in an electric circuit, this time using Kirchhoff’s Current Law and Ohm's Law.
 
-Mesh analysis is a well-organized method for solving a circuit, which makes use of Kirchhoff’s Voltage Law and Ohm's Law to deduce a set of equations guaranteed to be solvable if the circuit has a solution.
-
-In order to solve the circuit in study resorting to this method, we started by arbitrarily assigning mesh currents in the essential meshes, $I_1$ and $I_3$ looping in a clockwise direction and $I_2$ and $I_4$ in an anti-clockwise direction, as shown in the Figure~\ref{fig:mesh}.
-
-\vspace{-8mm}
-
-\begin{figure}[H] \centering
-\includegraphics[width=0.6\linewidth]{mesh_method.pdf}
-\caption{Mesh Analysis.}
-\label{fig:mesh}
-\end{figure}
-
-Hence, applying KVL to meshes $1$, $2$ and $3$ and equaling $I_4$ to current source value $I_d$, we deduced the following system of linear equations, whose solution is the set of assigned currents:
-
-\vspace{1mm}
+In order to solve the circuit in study resorting to the nodal method, we applied KCL in nodes not connected to voltage sources, $2$, $3$, $6$ and $7$, and wrote additional equations for nodes related by voltage sources, $1$, $5$ and $8$. This way, we were able to write 6 linearly independent equations, for what we needed one more to determine all the seven variables (excluding GND). Therefore, we managed to apply KCL to the super-node formed by node 1 and GND to get the last equation needed, and obtained the following system of linear equations, whose solution is the set of nodes potentials:
 
 \[
 {\begin{bmatrix}
-K_b R_3 & K_b R_3 - 1 & 0 & 0\\
-0 & 0 & 0 & 1\\
-R_1 + R_3 + R_4 & R_3 & -R_4 & 0\\
--R_4 & 0 & R_4 + R_6 + R_7 - K_c & 0\\
-            \end{bmatrix}
-            }
-{\begin{bmatrix}
-I_1\\
-I_2\\
-I_3\\
-I_4\\
-            \end{bmatrix}
-            }
-    =
-{\begin{bmatrix}
-0\\
-I_d\\
-V_a\\
-0\\
-            \end{bmatrix}
-            }
-\]
-
-
-\vspace{1mm}
-
-The solution vector for this system was obtained using the Octave maths tool and is presented in Table~\ref{tab:meshvec}:
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value [mA]} \\ \hline
-    \input{../mat/mesh}
-  \end{tabular}
-  \caption{Solution vector for assigned currents.}
-  \label{tab:meshvec}
-\end{table}
-
-From these data, we were able to determine the rest of the circuit's characteristics, which are shown in Table~\ref{tab:meshtab}:
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value [mA or V]} \\ \hline
-    \input{../mat/meshtab}
-  \end{tabular}
-  \caption{Circuit's characteristics using mesh method. A variable preceded by @ is of type {\em current}
-    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
-    Volt.}
-  \label{tab:meshtab}
-\end{table}
-
-
-\subsection{Node Analysis}
-
-Similarly, node analysis is used to deduce a set of equations to determine the nodes potential in an electric circuit, this time using Kirchhoff’s Current Law and Ohm's Law.
-
-In order to solve the circuit in study resorting to this method, we applied KCL in nodes not connected to voltage sources, $2$, $3$, $6$ and $7$, and wrote additional equations for nodes related by voltage sources, $1$, $4$ and $5$. This way, we were able to write 6 linearly independent equations, for what we needed one more to determine all the seven variables (excluding GND). Therefore, we managed to relate nodes $5$ and GND using KCL to get the last equation needed, and obtained the following system of linear equations, whose solution is the set of nodes potentials:
-
-\[
-{\begin{bmatrix}
-1 & 0 & 0 & -1 & 0 & 0 & 0\\
-0 & 0 & 0 & -\frac{K_c}{R_6} & 1 & 0 & \frac{K_c}{R_6}\\
-\frac{1}{R_1} & -\frac{1}{R_1}-\frac{1}{R_2}-\frac{1}{R_3} & \frac{1}{R_2} & 0 & \frac{1}{R_3} & 0 & 0\\
-0 & -\frac{1}{R_2}-K_b & \frac{1}{R_2} & 0 & K_b & 0 & 0\\
-0 & -K_b & 0 & 0 & \frac{1}{R_5}+K_b & -\frac{1}{R_5} & 0\\
-0 & 0 & 0 & \frac{1}{R_6} & 0 & 0 & -\frac{1}{R_6}-\frac{1}{R_7}\\
-0 & \frac{1}{R_3} & 0 & \frac{1}{R_4} & -\frac{1}{R_3}-\frac{1}{R_4}-\frac{1}{R_5} & \frac{1}{R_5} & \frac{1}{R_7}\\
+1 & 0 & 0 & 0 & 0 & 0 & 0\\
+-\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & -\frac{1}{R_3} & 0 & 0 & 0\\
+0 & \frac{1}{R_2}+K_b & -\frac{1}{R_2} & -K_b & 0 & 0 & 0\\
+0 & K_b & 0 & -\frac{1}{R_5}-K_b & \frac{1}{R_5} & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7}\\
+0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1\\
+-\frac{1}{R_1} & \frac{1}{R_1} & 0 & \frac{1}{R_4} & 0 & \frac{1}{R_6} & 0\\
             \end{bmatrix}
             }
 {\begin{bmatrix}
 V_1\\
 V_2\\
 V_3\\
-V_4\\
 V_5\\
 V_6\\
 V_7\\
+V_8\\
             \end{bmatrix}
             }
     =
 {\begin{bmatrix}
-V_a\\
+V_s\\
 0\\
 0\\
 0\\
--I_d\\
 0\\
-I_d\\
+0\\
+0\\
             \end{bmatrix}
             }
 \]
 
-Since GND potential isn't an unknown variable, taking the value 0, we excluded it from this system, in order to simplify the calculations.
+Since GND potential isn't an unknown variable, taking the value 0, we excluded it from this system, in order to simplify the calculations. Also, we considered that the voltage source was turned on for a long time, so the capacitor was fully charged and the current in this component was $0A$.
 
-Once again, the solution vector for this system was obtained using Octave. The results are shown in Table ~\ref{tab:nodetab}:
+The solution vector for this system was obtained using Octave. The results are shown in Table ~\ref{tab:node1}:
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
     {\bf Name} & {\bf Value [V]} \\ \hline
-    \input{../mat/node}
+    \input{../mat/node1}
   \end{tabular}
   \caption{Solution vector for nodes' potentials.}
-  \label{tab:nodetab}
+  \label{tab:node1}
 \end{table}
 
-Like above, we were able to calculate the rest of the circuit's characteristics, which are presented in Table~\ref{tab:nodetab}:
+Knowing the volatges in all nodes, we were able to calculate the rest of the circuit's characteristics, which are presented in Table~\ref{tab:nodetab1}:
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
-    {\bf Name} & {\bf Value [mA or V]} \\ \hline
-    \input{../mat/nodetab}
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../mat/nodetab1}
   \end{tabular}
   \caption{Circuit's characteristics using nodal method. A variable preceded by @ is of type {\em current}
-    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
     Volt.}
-  \label{tab:nodetab}
+  \label{tab:nodetab1}
+\end{table}
+
+\subsection{Equivalent Resistance, $R_{eq}$}
+\label{subsec:eqresist}
+
+In order to determine de equivalent resistance as seen from the capacitor terminals, we analysed a circuit with $Vs=0$ and a voltage source $Vx = V(6)-V(8)$ in the place of the capacitor and determined the current, $I_x$, supplied by $V_x$. Afterwards, we computed the equivalent resistance as $R_{eq}=V_x/I_x$. The voltages $V(6)$ and $V(8)$ are the ones determined in Subsection\ref{subsec:nodeanalysis}.
+
+In the procedure described before, we turned off the voltage source, because we want to determine the time constant in the natural solution, $v_{6n}(t)$, where we don't take into account the effect of the voltage source. We also replaced the capacitor with a voltage source $Vx$, corresponding to the difference of potential in the capacitor, for $t<0$, because we wanted to analyse the response of the circuit when turning off the voltage source, fixing the quantity $V(6)-V(8)$, to determine the current $I_x$, and finally, the equivalent resistance, $R_{eq}$. We needed this procedure, because the circuit is too complex, so we couldn't determine directly the equivalent resistance.
+
+To compute the voltages in all nodes, we used the nodal method and applied KCL to nodes which are not connected to voltage sources, 2, 3 and 7. Then we wrote three more equations relating nodes connected by voltage sources. Finally, we applied KCL to the supernode formed by node 1 and GND.
+
+\[
+{\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0\\
+-\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & -\frac{1}{R_3} & 0 & 0 & 0\\
+0 & \frac{1}{R_2}+K_b & -\frac{1}{R_2} & -K_b & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7}\\
+0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1\\
+0 & 0 & 0 & 0 & 1 & 0 & -1\\
+-\frac{1}{R_1} & \frac{1}{R_1} & 0 & \frac{1}{R_4} & 0 & \frac{1}{R_6} & 0\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+V_1\\
+V_2\\
+V_3\\
+V_5\\
+V_6\\
+V_7\\
+V_8\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+0\\
+0\\
+0\\
+0\\
+0\\
+V_x\\
+0\\
+            \end{bmatrix}
+            }
+\]
+
+After we determined the voltages in all nodes, we calculated the current $I_x$ by applying KCL in node 6:
+
+\begin{equation}
+  I_x = K_b(V_2-V5)+\frac{V_6-V_5}{R_5}
+\end{equation}
+
+The time constant, $\tau$, is give by:
+
+\begin{equation}
+  \tau = R_{eq}C
+\end{equation}
+
+The voltages in all nodes computed by the nodal method, the current, $I_x$, the equivalent resistance, $R_{eq}$, and the time constant, $\tau$, are presented in Table~\ref{node2}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/node2}
+  \end{tabular}
+  \caption{Nodes' voltages determined using nodal method (expressed in Volt), current $I_x$ (expressed in Ampere), equivalent resistance, $R_{eq}$ (expressed in $\Omega$) and time constant, $\tau$ (expressed in $s$).}
+  \label{tab:node2}
 \end{table}
 
 
+\subsection{Natural Solution, $v_{6n}(t)$}
+
+As learned in the theory classes, the natural solution in a RC circuit is of the form:
+
+\begin{equation}
+  v_{6n}(t) = v_6(+\infty)+(v_6(0^+)-v_6(+\infty))e^{-\frac{t}{\tau}}
+  \label{eq:natsol}
+\end{equation}
 
 
+The value of $v_6(0^+)$ was already determined and is presented in Table~\ref{tab:node2}. Considering that the voltage source, $v_s$ is turned off, we know that when $t \rightarrow \infty$, the capacitor will discharge and the voltages in the nodes will go to zero, so $v_6(+\inf)=0$. Replacing in Equation~\ref{eq:natsol} we get the solution illustrated in Figure~\ref{fig:natsol}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{natural6.eps}
+\caption{Natural solution, $v_{6n}(t)$, (expressed in Volt) in the interval [0,20]ms.}
+\label{fig:natsol}
+\end{figure}
 
 
+\subsection{Forced Solution, $v_{6f}(t)$} \label{subsec:forsol}
+
+In the forced regime, the voltages in all nodes are sinusoidal signals with the same frequency as the voltage source $v_s$. We can analyse this circuit by considering that each voltage and current is a complex exponential and, for the real solution, we just take tha real part of the complex exponential. Therefore, the voltage in an arbitrary node i is:
+
+\begin{equation}
+  v_i(t) = V_i e^{j(\omega t - \phi_i)}
+\end{equation}
+
+where $\omega = 2\pi f$ s the angular frequency and $\phi_i$ is the phase delay of the voltage in node i. The voltage source is $v_s(t) = e^{j(\omega t - \pi/2)}$. The phasor voltage of each node i is given by:
+
+\begin{equation}
+  \widetilde{V}_i = V_i e^{-j\phi_i}
+\end{equation}
+
+Knowing that the impedance of tha capacitor is $Z_c = \frac{1}{j \omega C}$, we know that the current in the capacitor going from node 6 to node 8 is:
+
+\begin{equation}
+  i_c(t) = j \omega C (v_6(t)-v_8(t))
+\end{equation}
+
+Applying the nodal methods, we can write four equations using KCL in nodes 2, 3, 6 and 7, which are not connected to voltage sources. We can also two equations for nodes connected to voltage sources and another equation using KCL in the super-node formed by node 1 and GND. The system of equations, whose solution is the vector of the phasor voltages, is the following:
+
+\[
+{\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0\\
+-\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & -\frac{1}{R_3} & 0 & 0 & 0\\
+0 & \frac{1}{R_2}+K_b & -\frac{1}{R_2} & -K_b & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7}\\
+0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1\\
+-\frac{1}{R_1} & \frac{1}{R_1} & 0 & \frac{1}{R_4} & 0 & \frac{1}{R_6} & 0\\
+0 & K_b & 0 & -K_b-\frac{1}{R_5} & \frac{1}{R_5}+jC\omega & 0 & -jC\omega
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+\widetilde{V}_1\\
+\widetilde{V}_2\\
+\widetilde{V}_3\\
+\widetilde{V}_5\\
+\widetilde{V}_6\\
+\widetilde{V}_7\\
+\widetilde{V}_8\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+\widetilde{V}_s\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0\\
+            \end{bmatrix}
+            }
+\]
+
+Once again, the solution vector for this system was obtained using Octave. The results are shown in Table ~\ref{tab:phasortab}:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|c}
+    \hline    
+    {\bf Node} & {\bf Phasor, $\widetilde{V}$} & {\bf Norm, $V$} & {\bf Phase, $\phi$} \\ \hline
+    \input{../mat/phasortab}
+  \end{tabular}
+  \caption{Phasor voltages, norm of the phasor (expressed in Volt) and phase of the phasor (expressed in degrees).}
+  \label{tab:phasortab}
+\end{table}
+
+Taking the real part of the complex exponential determined in Subsection~\ref{subsec:forsol} we get that the forced solution is:
+
+\begin{equation}
+  v_{6f}(t) = V_6 cos(\omega t - \phi_6)
+\end{equation}
 
 
+\subsection{Final Solution, $v_6(t)$} \label{subsec:finsol}
+
+For $t<=0$ the voltage source remains constant and we already determined the voltages in all nodes in Subsection~\ref{subsec:nodeanalysis}. For t>0, the voltage source corresponds to a sinusoidal source and we determined in Subsection~\ref{subsec:natsol} and \ref{subsec:forsol} the natural and forced solutions. The final solution is the superimposition of these solutions. The results are illustrated in Figure~\ref{fig:finsol}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{alinea5.eps}
+\caption{Final solution, $v_{6}(t)$, and the voltage in the source, $v_s(t)$, (expressed in Volt) in the interval [-5,20]ms.}
+\label{fig:finsol}
+\end{figure}
 
 
+\subsection{Frequency Response}
 
+In the previous subsections, we considered that the voltage source had a frequency $f=1kHz$. Now, we will analyse how the eletric circuit responds for different frequencies, $f$. For each frequency we did the procedure described before where we computed the phasor voltages in all nodes using the nodal method.
 
+In Figure~\ref{fig:magnitude}, we present the variation of the magnitude of $v_6(t)$, $v_s(t)$ and $v_c(t)$ in decibels, for frequency range $0.1Hz$ to $1MHz$.
 
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{alinea6_1.eps}
+\caption{Magnitude response of $v_6(t)$(red), $v_s(t)$(blue) and $v_c(t)$(green) (expressed in decibels).}
+\label{fig:magnitude}
+\end{figure}
 
+We can see that the magnitude of the voltage source is constant and equal to 0, which makes sense because this is the base signal for converting the voltages to decibels. It is evident that the magnitude in node 6 remains approximately constant for small and high frequencies, but there is an interval in between where it decreases from a value bigger than the magnitude of the source to one that is smaller. The voltage in the capacitor also remains constante for small frequencies but for higher frequencies it decreases linearly (in decibels), so this quantity in Volt tends to zero when the frequency increases.
 
+In Figure~\ref{fig:phase}, we present the difference between the phase of the voltage source and the voltage in node 6 and in the capacitor, for the same frequency range.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{alinea6_2.eps}
+\caption{Phase response of $v_6(t)$(red), $v_s(t)$(blue) and $v_c(t)$(green) (expressed in degrees).}
+\label{fig:phase}
+\end{figure}
+
+First of all, we see that the phase of the voltage source remains constant and equal to 0, because the plot presents the difference of phases with respect to the voltage source. For the voltages of node 8 and the capacitor, the phases remain constant for small and high frequencies, but there is an interval, just like with the magnitudes, where the phases vary. We can conclude that for small frequencies the voltages are both in phase with the voltage source. However, for high frequencies the voltage of node 8 is in opposition phase with the source, as the difference of phases is $-180^{\circ}$, and the phase of the voltage in the capacitor differs $-90^{\circ}$ from the source.
 

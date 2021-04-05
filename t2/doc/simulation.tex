@@ -1,24 +1,11 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
 
-In addition to theoretical analysis, we computed the characteristics of the circuit using Ngspice. The simulated operating point results are then shown in Table~\ref{tab:op}.
+\subsection{Operating point, $t<0s$} \label{subsec:op}
 
-\vspace{1mm}
+In addition to theoretical analysis, we computed the characteristics of the circuit using Ngspice.
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value [mA or V]} \\ \hline
-    \input{../sim/op_tab}
-  \end{tabular}
-  \caption{Operating point. A variable preceded by @ is of type {\em current}
-    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
-    Volt.}
-  \label{tab:op}
-\end{table}
-
-Taking into account that the voltage source $V_c$ is controlled by the current $I_c$, which flows through resistor $R_6$, and Ngspice requires a voltage source with current $I_c$ to implement this component, we considered an additional voltage source of $0V$ in series with the resistor $R_6$, working as an amperemeter measuring the aforementioned current (Table~\ref{fig:node8}). That's the reason an additional node (8) appears in the table above.
+Taking into account that the voltage source $V_d$ is controlled by the current $I_d$, which flows through resistor $R_6$, and Ngspice requires a voltage source with current $I_d$ to implement this component, we considered an additional voltage source of $0V$ in series with the resistor $R_6$, working as an amperemeter measuring the aforementioned current (Table~\ref{fig:node8}). That's the reason an additional node (8) appears in the table above.
 
 \begin{figure}[H] \centering
 \includegraphics[width=0.55\linewidth]{node8.pdf}
@@ -26,4 +13,113 @@ Taking into account that the voltage source $V_c$ is controlled by the current $
 \label{fig:node8}
 \end{figure}
 
-Compared to the theoretical analysis results, one notices that the values only differ from the 13th decimal place onwards for both mesh and nodal method. Taking into account that the previously known characteristics of the circuit only had 11 decimal places, it's clear that these results match with great precision with the ones obtained by simulation.
+The simulated operating point for $t<0s$ results are then shown in Table~\ref{tab:op11}.
+
+\vspace{1mm}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab1}
+  \end{tabular}
+  \caption{Operating point simulated with Ngspice. A variable preceded by @ is of type {\em current}
+    and expressed in miliampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op11}
+\end{table}
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/nodetab1}
+  \end{tabular}
+  \caption{Solution vector for nodes' potentials determined using Octave.}
+  \label{tab:op12}
+\end{table}
+
+
+Compared to the theoretical analysis results, one notices that the results are significantly similar and only differ in digits with small value.
+
+\subsection{Operating Point, $v_s(t)=0$}
+
+In this subsection we simulate the operating point for $v_s(t)=0$, i.e. with the voltage source, $v_s$, turned off, and a voltage source $V_x=V(6)-V(8)$ in the place of the capacitor, just like we did in Subsection~\ref{subsec:eqresit}. We did this procedure in order to determine the initial conditions for the natural response of the circuit. The simulated operating point results are in Table~\ref{tab:op21}.
+
+\vspace{1mm}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab2}
+  \end{tabular}
+  \caption{Operating point simulated with Ngspice. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \label{tab:op21}
+\end{table}
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/node2}
+  \end{tabular}
+  \caption{Nodes' voltages determined using nodal method (expressed in Volt), current $I_x$ (expressed in Ampere), equivalent resistance, $R_{eq}$ (expressed in $\Omega$) and time constant, $\tau$ (expressed in $s$) determined using Octave.}
+  \label{tab:op22}
+\end{table}
+
+
+\subsection{Transient Analysis - Natural Response} \label{subsec:trannat}
+
+Using the values of V(6) and V(8) determined in the previous subsection as initial conditions, we simulated the natural response of the circuit using Ngspice's transient analysis mode. The plot for the interval [0,20]ms is presented in Figure~\ref{fig:trannat}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{../sim/trans3.pdf}
+\caption{Natural solution, $v_{6n}(t)$, (expressed in Volt) in the interval [0,20]ms, determined using Ngspice.}
+\label{fig:trans3}
+\end{figure}
+
+Comparing the plot in Figure~\ref{fig:trans3} with the one in Figure~\ref{fig:natsol}, we can see that both plots match exactly as they intersect the y axis in the same point and the decayment is very similar.
+
+\subsection{Transient Analysis - Final Solution} \label{subsec:tranfin}
+
+Just like we did in Subsection~\ref{subsec:trannat}, we used Ngspice's transient analysis mode, but with the voltage source turned on and with frequency $f=1kHz$. The plot of the response on node 6 and of the stimulus are in Figure~\ref{fig:trans4}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{../sim/trans4.pdf}
+\caption{Response on node 6, $v_{6}(t)$ (red), and stimulus (blue) (expressed in Volt) in the interval [0,20]ms, determined using Ngspice.}
+\label{fig:trans4}
+\end{figure}
+
+Comparing this results with the theoretical ones, obtained with Octave and illustrated in Figure~\ref{fig:finsol}, we see that they match in the common interval of time, [0,20]ms, because the response on node 6 intersects the y axis in the same value in both cases and also the decayment is similar, just like we verified for the natural solution. It is also clear that in both plots the response on node 6 seems to be in opposition phase with the stimulus and the magnitude of the signals are similar in the final period of time. Therefore, we can conclude that the phase and magnitude of the forced signal, in Ngspice, agree with the ones computed with Octave.
+
+\subsection{Frequency Analysis} \label{subsec:freqanalysis}
+
+Finally, we analysed the response on node 6 and on the capacitor for different frequencies in the interval $0.1Hz$ to $1MHz$. Firstly, we present the results for the magnitude response in Figure~\ref{fig:simmag} and the ones for the phase response in Figure~\ref{fig:simphase}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{../sim/ac5mag.pdf}
+\caption{Magnitude response of $v_6(t)$(blue), $v_s(t)$(red) and $v_c(t)$(yellow) (expressed in decibels), computed with Ngspice.}
+\label{fig:simmag}
+\end{figure}
+
+Once again, we verify that the magnitude of both the voltage in node 6 and in the capacitor are approximately constant and biger than the magnitude of the stimulus for low frequencies. In the case of node 6, the voltage decreases until it stabilizes on another value lower than the magnitude of the voltage source and remains constant for high frequencies. The voltage of the capacitor decreases linearly for higher frequencies (in decibels), which means that in Volts it tens to zero when the frequency increases.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{../sim/ac5phase.pdf}
+\caption{Phase response of $v_6(t)$(blue), $v_s(t)$(red) and $v_c(t)$(yellow) (expressed in degrees), computed with Ngspice.}
+\label{fig:simphase}
+\end{figure}
+
+In terms of the phases analysis, we see that for low frequencies both signals are in phase with the voltage source and as the frequency increases, eventually, they vary and stabilize for high frequencies. Tha voltage in node 6 is in opposition of phase with the stimulus and the voltage in the capacitor has a phase delay of $-90^{circ}$ with respect to the stimulus.
+
+It is clear that these descriptions match the ones made previously in the theoretical analysis and also graphically we can check that the responses are very similar to the ones computed theoretically with Octave.
+
+
+
