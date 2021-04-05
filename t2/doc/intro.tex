@@ -2,7 +2,7 @@
 \label{sec:introduction}
 
 % state the learning objective 
-The objective of this laboratory assignment is to study a circuit containing eight nodes numbered from 1 to 7, plus GND. In the present circuit, we can find seven resistors, $R_1$ to $R_7$, one voltage source, $V_a$, one current source, $I_d$, one voltage controlled current source, $I_b$ and, finally, one current controlled voltage source, $V_c$, connected as seen in Figure~\ref{fig:t1}.
+The objective of this laboratory assignment is to study a RC circuit containing eight nodes numbered from 1 to 3 and from 5 to 6, plus GND. In the present circuit, we can find seven resistors, $R_1$ to $R_7$, one capacitor, $C$, one voltage source, $v_s$, one voltage controlled current source, $I_b$ and, finally, one current controlled voltage source, $V_d$, connected as seen in Figure~\ref{fig:t1}. The voltage source supplies constant voltage for $t <= 0s$ and supplies a sinusoidal voltage for $t > 0s$.
 
 \begin{figure}[H] \centering
 \includegraphics[width=0.8\linewidth]{t1.pdf}
@@ -23,4 +23,4 @@ The previously known characteristics of the circuit are summarized in Table~\ref
   \label{tab:datatab}
 \end{table}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the circuit using the mesh method, as well as the nodal method and, in Section~\ref{sec:simulation}, we compare these results to the ones obtained by simulation using Ngspice. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the circuit, where we start by determining the voltages in all nodes and the currents in all branches for $t<0s$, using the nodal method. We also determined the equivalent resistance, $R_{eq}$, as seen from the capacitor terminals, in order to compute the natural solution $v_{6n}(t)$. Using the nodal method we were able to calculate the phasor voltages in all nodes, so we computed the forced solution and also the final solution by superimposing the two previous solutions. Finally, we analysed how the magnitude and the phase of the voltages in node 6 and in the capacitor vary with the frequency of the voltage source. In Section~\ref{sec:simulation}, we compare the results from Section~\ref{ref:analysis} with the ones obtained by simulation using Ngspice. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions.

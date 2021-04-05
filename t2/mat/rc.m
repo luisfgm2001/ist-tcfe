@@ -209,18 +209,24 @@ V7 = norm(fV7)
 V8 = norm(fV8)
 Vx = norm(fVx)
 
-phi1 = angle(fV1)
-phi2 = angle(fV2)
-phi3 = angle(fV3)
-phi5 = angle(fV5)
-phi6 = angle(fV6)
-phi7 = angle(fV7)
-phi8 = angle(fV8)
-phix = angle(fVx)
+phi1 = -angle(fV1)*180/pi
+phi2 = -angle(fV2)*180/pi
+phi3 = -angle(fV3)*180/pi
+phi5 = -angle(fV5)*180/pi
+phi6 = -angle(fV6)*180/pi
+phi7 = -angle(fV7)*180/pi
+phi8 = -angle(fV8)*180/pi
+phix = -angle(fVx)*180/pi
+
+file = fopen("phasortab.tex", "w");
+
+fprintf(file, "1 & %s & %0.15E & %0.15E  \\\\ \\hline\n2 & %s & %0.15E & %0.15E  \\\\ \\hline\n3 & %s & %0.15E & %0.15E  \\\\ \\hline\n5 & %s & %0.15E & %0.15E  \\\\ \\hline\n6 & %s & %0.15E & %0.15E  \\\\ \\hline\n7 & %s & %0.15E & %0.15E  \\\\ \\hline\n8 & %s & %0.15E & %0.15E  \\\\ \\hline\n", num2str(fV1), V1, phi1, num2str(fV2), V2, phi2, num2str(fV3), V3, phi3, num2str(fV5), V5, phi5, num2str(fV6), V6, phi6, num2str(fV7), V7, phi7, num2str(fV8), V8, phi8);
+
+fclose(file);
 
 t=0:1e-5:20e-3;
 
-v6f = V6*cos(2*pi*1000*t+phi6);
+v6f = V6*cos(2*pi*1000*t-phi6*pi/180);
 
 
 forced6fig = figure();
@@ -237,7 +243,7 @@ ramo1 = t<0;
 ramo2 = t>=0;
 
 v6(ramo1) = V6men0;
-v6(ramo2) = V6nat*exp(-t(ramo2)/tau)+V6*cos(2*pi*1000*t(ramo2)+phi6);
+v6(ramo2) = V6nat*exp(-t(ramo2)/tau)+V6*cos(2*pi*1000*t(ramo2)-phi6*pi/180);
 
 ramo3 = t<=0;
 ramo4 = t>0;
@@ -287,7 +293,7 @@ plot(vetorlogf, vetorvc, "g");
 hold on;
 plot(vetorlogf, vetorvs, "b");
 
-xlabel("f [Hz]");
+xlabel("log(f) ([f] = Hz)");
 ylabel("v6(f), vs(f), vc(f) [dB]");
 
 print(alinea6fig1, "alinea6_1.eps", "-depsc");
@@ -301,7 +307,7 @@ plot(vetorlogf, vetorfasec, "g");
 hold on;
 plot(vetorlogf, vetorfases, "b");
 
-xlabel("f [Hz]");
+xlabel("log(f) ([f] = Hz)");
 ylabel("phase_6(f), phase_s(f), phase_c(f) [dB]");
 
 print(alinea6fig2, "alinea6_2.eps", "-depsc");
