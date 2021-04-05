@@ -25,17 +25,50 @@ syms V6
 syms V7
 syms V8
 
-R1 = 1.00455407009e3;
-R2 = 2.04596274404e3;
-R3 = 3.09144622662e3;
-R4 = 4.11831176554e3;
-R5 = 3.01223930062e3;
-R6 = 2.09613044241e3;
-R7 = 1.04911840913e3;
-Vs = 5.24627171439;
-C = 1.01890083211e-6;
-Kb = 7.12576427883e-3;
-Kd = 8.23427638445e3;
+file = fopen("../data.txt", "r");
+
+syms count
+syms errmsg
+
+[data, count, errmsg] = fscanf(file, "%f");
+
+fclose(file);
+
+R1 = data(1)*1e3;
+R2 = data(2)*1e3;
+R3 = data(3)*1e3;
+R4 = data(4)*1e3;
+R5 = data(5)*1e3;
+R6 = data(6)*1e3;
+R7 = data(7)*1e3;
+Vs = data(8);
+C = data(9)*1e-6;
+Kb = data(10)*1e-3;
+Kd = data(11)*1e3;
+
+file = fopen("../sim/data1.txt", "w");
+
+fprintf(file, "Vs n1 0 %f\nR1 n1 n2 %f\nR2 n2 n3 %f\nR3 n2 n5 %f\nGb n6 n3 n2 n5 %f\nR4 0 n5 %f\nR5 n5 n6 %f\nR6 0 n7 %f\nVHd n7 nex 0\nHd n5 n8 VHd %f\nC n6 n8 %f\nR7 nex n8 %f\n", Vs, R1, R2, R3, Kb, R4, R5, R6, Kd, C, R7);
+
+fclose(file);
+
+file = fopen("../sim/data2.txt", "w");
+
+fprintf(file, "Vs n1 0 0\nR1 n1 n2 %f\nR2 n2 n3 %f\nR3 n2 n5 %f\nGb n6 n3 n2 n5 %f\nR4 0 n5 %f\nR5 n5 n6 %f\nR6 0 n7 %f\nVHd n7 nex 0\nHd n5 n8 VHd %f\nR7 nex n8 %f\n", R1, R2, R3, Kb, R4, R5, R6, Kd, R7);
+
+fclose(file);
+
+file = fopen("../sim/data3.txt", "w");
+
+fprintf(file, "Vs n1 0 0\nR1 n1 n2 %f\nR2 n2 n3 %f\nR3 n2 n5 %f\nGb n6 n3 n2 n5 %f\nR4 0 n5 %f\nR5 n5 n6 %f\nR6 0 n7 %f\nVHd n7 nex 0\nHd n5 n8 VHd %f\nR7 nex n8 %f\nC n6 n8 %f\n", R1, R2, R3, Kb, R4, R5, R6, Kd, R7, C);
+
+fclose(file);
+
+file = fopen("../sim/data4.txt", "w");
+
+fprintf(file, "Vs n1 0 0.0 ac 1.0 sin(0 1 1k)\nR1 n1 n2 %f\nR2 n2 n3 %f\nR3 n2 n5 %f\nGb n6 n3 n2 n5 %f\nR4 0 n5 %f\nR5 n5 n6 %f\nR6 0 n7 %f\nVHd n7 nex 0\nHd n5 n8 VHd %f\nR7 nex n8 %f\nC n6 n8 %f\n", R1, R2, R3, Kb, R4, R5, R6, Kd, R7, C);
+
+fclose(file);
 
 
 A = [1,0,0,0,0,0,0;-1/R1,1/R1+1/R2+1/R3,-1/R2,-1/R3,0,0,0;0,1/R2+Kb,-1/R2,-Kb,0,0,0;0,Kb,0,-1/R5-Kb,1/R5,0,0;0,0,0,0,0,1/R6+1/R7,-1/R7;0,0,0,1,0,Kd/R6,-1;-1/R1,1/R1,0,1/R4,0,1/R6,0];
