@@ -8,7 +8,7 @@ In addition to theoretical analysis, we computed the characteristics of the circ
 Taking into account that the voltage source $V_d$ is controlled by the current $I_d$, which flows through resistor $R_6$, and Ngspice requires a voltage source with current $I_d$ to implement this component, we considered an additional voltage source of $0V$ in series with the resistor $R_6$, working as an amperemeter measuring the aforementioned current (Figure~\ref{fig:node8}). That's the reason an additional node (ex) appears in Table~\ref{tab:op11}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.55\linewidth]{node8.pdf}
+\includegraphics[width=0.4\linewidth]{node8.pdf}
 \caption{Additional voltage source.}
 \label{fig:node8}
 \end{figure}
@@ -16,6 +16,8 @@ Taking into account that the voltage source $V_d$ is controlled by the current $
 The simulated operating point results for $t<0s$ are then shown in Table~\ref{tab:op11}.
 
 \vspace{1mm}
+
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{table}[H]
   \centering
@@ -30,6 +32,10 @@ The simulated operating point results for $t<0s$ are then shown in Table~\ref{ta
   \label{tab:op11}
 \end{table}
 
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\vspace{-4.5mm}
 
 \begin{table}[H]
   \centering
@@ -42,6 +48,9 @@ The simulated operating point results for $t<0s$ are then shown in Table~\ref{ta
   \label{tab:op12}
 \end{table}
 
+\end{minipage}
+
+\vspace{3mm}
 
 Compared to the theoretical analysis results, one notices that the results are significantly similar and only differ in digits with small order of magnitude.
 
@@ -50,6 +59,8 @@ Compared to the theoretical analysis results, one notices that the results are s
 In this subsection we simulate the operating point for $v_s(t)=0$, i.e. with the voltage source, $v_s$, turned off, and a voltage source $V_x=V(6)-V(8)$ in the place of the capacitor, just like we did in Subsection~\ref{subsec:eqresist}. We did this procedure in order to determine the initial conditions for the natural response of the circuit. The simulated operating point results are in Table~\ref{tab:op21}.
 
 \vspace{1mm}
+
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{table}[H]
   \centering
@@ -62,6 +73,10 @@ In this subsection we simulate the operating point for $v_s(t)=0$, i.e. with the
   \label{tab:op21}
 \end{table}
 
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\vspace{24mm}
 
 \begin{table}[H]
   \centering
@@ -74,6 +89,8 @@ In this subsection we simulate the operating point for $v_s(t)=0$, i.e. with the
   \label{tab:op22}
 \end{table}
 
+\end{minipage}
+
 Comparing the results from both analyses, we see that the nodes with null voltages determined by Octave also have voltages very close to zero in Ngspice, having order of magnitude $10^{-15}$ or smaller. The unique voltage that isn't zero, $V_6$, is approximately the same in the simulation and theoretical analysis. Therefore, we can conclude that the time constant of the simulation will agree with the one computed with Octave and that the initial conditions of the natural solution are pratically the same.
 
 \subsection{Transient Analysis - Natural Response} \label{subsec:trannat}
@@ -81,19 +98,19 @@ Comparing the results from both analyses, we see that the nodes with null voltag
 Using the values of V(6) and V(8) determined in Subsection~\ref{subsec:op2} as initial conditions, we simulated the natural response of the circuit using Ngspice's transient analysis mode. The plot for the time interval [0,20]ms is presented in Figure~\ref{fig:trannat}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../sim/trans3.pdf}
+\includegraphics[width=0.6\linewidth]{../sim/trans3.pdf}
 \caption{Natural solution, $v_{6n}(t)$, (expressed in Volt) in the interval [0,20]ms, determined using Ngspice.}
 \label{fig:trannat}
 \end{figure}
 
-Comparing the plot in Figure~\ref{fig:trans3} with the one in Figure~\ref{fig:natsol}, we can see that both plots match exactly, as they intersect the y axis in the same point and the decayment is very similar.
+Comparing the plot in Figure~\ref{fig:trannat} with the one in Figure~\ref{fig:natsol}, we can see that both plots match exactly, as they intersect the y axis in the same point and the decayment is very similar.
 
 \subsection{Transient Analysis - Final Solution} \label{subsec:tranfin}
 
 Just like we did in Subsection~\ref{subsec:trannat}, we used Ngspice's transient analysis mode to compute the response of the circuit, but now with the voltage source turned on and with frequency $f=1kHz$. The plot of the response on node 6 and of the stimulus are in Figure~\ref{fig:trans4}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../sim/trans4.pdf}
+\includegraphics[width=0.6\linewidth]{../sim/trans4.pdf}
 \caption{Response on node 6, $v_{6}(t)$ (red), and stimulus (blue) (expressed in Volt) in the interval [0,20]ms, determined using Ngspice.}
 \label{fig:trans4}
 \end{figure}
@@ -105,7 +122,7 @@ Comparing this results with the theoretical ones, obtained with Octave and illus
 Finally, we analysed the response on node 6 and on the capacitor for different frequencies in the interval $0.1Hz$ to $1MHz$. We present the results for the magnitude response in Figure~\ref{fig:simmag} and the ones for the phase response in Figure~\ref{fig:simphase}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../sim/ac5mag.pdf}
+\includegraphics[width=0.6\linewidth]{../sim/ac5mag.pdf}
 \caption{Magnitude response of $v_6(t)$(blue), $v_s(t)$(red) and $v_c(t)$(yellow) (expressed in decibels), computed with Ngspice.}
 \label{fig:simmag}
 \end{figure}
@@ -113,7 +130,7 @@ Finally, we analysed the response on node 6 and on the capacitor for different f
 Once again, we verify that the magnitude of both the voltage in node 6 and in the capacitor are approximately constant and bigger than the magnitude of the stimulus for low frequencies. In the case of node 6, the voltage decreases until it stabilizes on another value lower than the magnitude of the voltage source and remains constant for high frequencies. The voltage of the capacitor decreases linearly for higher frequencies (in decibels), which means that in Volts it tends to zero when the frequency increases.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../sim/ac5phase.pdf}
+\includegraphics[width=0.6\linewidth]{../sim/ac5phase.pdf}
 \caption{Phase response of $v_6(t)$(blue), $v_s(t)$(red) and $v_c(t)$(yellow) (expressed in degrees), computed with Ngspice.}
 \label{fig:simphase}
 \end{figure}

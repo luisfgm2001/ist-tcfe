@@ -1,7 +1,7 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-\subsection{Node Analysis (t<0s)}
+\subsection{Node Analysis ($t<0s$)}
 \label{subsec:nodeanalysis}
 
 In order to solve the circuit in study resorting to the nodal method, we applied KCL to nodes not connected to voltage sources, $2$, $3$, $6$ and $7$, and wrote additional equations for nodes related by voltage sources, $1$, $5$ and $8$. This way, we were able to write 6 linearly independent equations, for what we needed one more to determine all the seven variables (excluding GND). Therefore, we managed to apply KCL to the super-node formed by node 1 and GND to get the last equation needed, and obtained the following system of linear equations, whose solution is the set of nodes potentials:
@@ -151,7 +151,7 @@ As learned in the theory classes, the natural solution in a RC circuit is of the
 The value of $v_6(0^+)$ was already determined and is presented in Table~\ref{tab:node2}. Considering that the voltage source, $v_s$ is turned off, it is known that, when $t \rightarrow \infty$, the capacitor will discharge and the voltages in the nodes will go to zero, so $v_6(+\inf)=0$. Replacing in Equation~\ref{eq:natsol}, we get the solution illustrated in Figure~\ref{fig:natsol}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{natural6.eps}
+\includegraphics[width=0.6\linewidth]{natural6.eps}
 \caption{Natural solution, $v_{6n}(t)$, (expressed in Volt) in the interval [0,20]ms.}
 \label{fig:natsol}
 \end{figure}
@@ -239,10 +239,10 @@ Taking the real part of the complex exponential determined in Subsection~\ref{su
 
 \subsection{Final Solution, $v_6(t)$} \label{subsec:finsol}
 
-For $t<=0$, the voltage source remains constant and the voltages in all nodes were already determined in Subsection~\ref{subsec:nodeanalysis}. For t>0, the voltage source corresponds to a sinusoidal source and the natural and forced solutions were determined in Subsection~\ref{subsec:natsol}. This being said, the final solution is the superimposition of both solutions and the results are illustrated in Figure~\ref{fig:finsol}.
+For $t \leq 0$, the voltage source remains constant and the voltages in all nodes were already determined in Subsection~\ref{subsec:nodeanalysis}. For t>0, the voltage source corresponds to a sinusoidal source and the natural and forced solutions were determined in Subsection~\ref{subsec:natsol}. This being said, the final solution is the superimposition of both solutions and the results are illustrated in Figure~\ref{fig:finsol}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{alinea5.eps}
+\includegraphics[width=0.6\linewidth]{alinea5.eps}
 \caption{Final solution, $v_{6}(t)$, and the voltage in the source, $v_s(t)$, (expressed in Volt) in the interval [-5,20]ms.}
 \label{fig:finsol}
 \end{figure}
@@ -255,7 +255,7 @@ In the previous subsections, we considered that the voltage source had a frequen
 In Figure~\ref{fig:magnitude}, we present the variation of the magnitude of $v_6(t)$, $v_s(t)$ and $v_c(t)$ in decibels, for frequency range $0.1Hz$ to $1MHz$.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{alinea6_1.eps}
+\includegraphics[width=0.6\linewidth]{alinea6_1.eps}
 \caption{Magnitude response of $v_6(t)$(red), $v_s(t)$(blue) and $v_c(t)$(green) (expressed in decibels).}
 \label{fig:magnitude}
 \end{figure}
@@ -265,7 +265,7 @@ It turns out that the magnitude of the voltage source is constant and equal to 0
 In Figure~\ref{fig:phase}, we present the phase delay of the voltage in node 6 and in the capacitor with respect to the voltage source, for the same frequency range.
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{alinea6_2.eps}
+\includegraphics[width=0.6\linewidth]{alinea6_2.eps}
 \caption{Phase response of $v_6(t)$(red), $v_s(t)$(blue) and $v_c(t)$(green) (expressed in degrees).}
 \label{fig:phase}
 \end{figure}
