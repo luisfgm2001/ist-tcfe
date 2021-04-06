@@ -24,6 +24,9 @@
 
 .INCLUDE ./voltages68_3.txt
 
+.op
+
+.end
 
 .control
 
@@ -61,9 +64,6 @@ echo ac5phase_FIG
 
 
 
-quit
-
 .endc
 
 
-.end

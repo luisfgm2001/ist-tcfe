@@ -25,6 +25,10 @@
 .INCLUDE ./voltages68_3.txt
 
 
+.op
+
+.end
+
 .control
 
 set hcopypscolor=0
@@ -47,9 +51,6 @@ hardcopy trans3.ps v(n6)
 echo trans3_FIG
 
 
-quit
-
 .endc
 
 
-.end
