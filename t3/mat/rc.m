@@ -1,6 +1,8 @@
 close all 
 clear all
 
+pkg load symbolic
+
 
 C = 420e-6;
 A = 0.70609*230;
@@ -193,4 +195,22 @@ file = fopen("teor.tex", "w");
 fprintf(file, "%.10f & %.10f \\\\ \\hline \n", dclevel, ripple);
 
 fclose(file);
+
+file = fopen("../sim/op_tab.txt", "r");
+
+syms count
+syms errmsg
+
+[data, count, errmsg] = fscanf(file, "%s %c %f");
+
+fclose(file);
+
+printf("%f \n", data(15));
+
+file = fopen("simtab.tex", "w");
+
+fprintf(file, "\\hline \n & Teórica & Simulação \\\\ \\hline \navg(vo-12) & %.10f & %.10f \\\\ \\hline \nripple & %.10f & %.10f \\\\ \\hline \n", dclevel-12, data(7)-12, ripple, data(15));
+
+fclose(file);
+
 
