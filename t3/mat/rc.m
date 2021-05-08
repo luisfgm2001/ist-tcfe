@@ -209,7 +209,7 @@ printf("%f \n", data(15));
 
 file = fopen("simtab.tex", "w");
 
-fprintf(file, "\\hline \n & Teórica & Simulação \\\\ \n \\hline \navg(vo-12) & %.10f & %.10f \\\\ \n \\hline \nRipple & %.10f & %.10f \\\\ \n \\hline \n", dclevel-12, data(7)-12, ripple, data(15));
+fprintf(file, " & Theoretical Analysis & Simulation \\\\ \n\\hline \navg(vo-12) & %.10f & %.10f \\\\ \n\\hline \nRipple & %.10f & %.10f \\\\ \n\\hline", dclevel-12, data(7)-12, ripple, data(15));
 
 fclose(file);
 
@@ -219,7 +219,7 @@ cost = 420 + 2.3 + 369.982;
 
 merit = 1/cost/(data(15)+data(7)-12+1e-6);
 
-fprintf(file, "\\hline \n avg(vo-12) & %.5f \\\\ \n \\hline \nRipple & %.5f \\\\ \n \\hline \nCost & %.3f \\\\ \n \\hline \nMerit & %.2f \\\\ \n \\hline", data(7)-12, data(15), cost, merit);
+fprintf(file, "avg(vo-12) & %.5f \\\\ \n\\hline \nRipple & %.5f \\\\ \n\\hline \nCost & %.3f \\\\ \n\\hline \nMerit & %.2f \\\\ \n\\hline", data(7)-12, data(15), cost, merit);
 
 fclose(file);
 
