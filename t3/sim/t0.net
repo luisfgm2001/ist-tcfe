@@ -79,6 +79,7 @@ echo vdiff_FIG
 meas tran yavg AVG v(n5) from=0.1 to=0.3
 meas tran ymax MAX v(n5) from=0.1 to=0.3
 meas tran ymin MIN v(n5) from=0.1 to=0.3
+meas tran iavg AVG i(Vttt) from=0.1 to=0.3
 meas tran imax MAX i(Vttt) from=0.1 to=0.3
 meas tran imin MIN i(Vttt) from=0.1 to=0.3
 

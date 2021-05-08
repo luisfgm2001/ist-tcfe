@@ -11,9 +11,9 @@ V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
-Vd = V_on;
 Is = 1e-14;
 rd = 56.79666793;
+Vd = V_on-rd*4.024978e-04;
 
 
 function absv = absv(t)
@@ -54,12 +54,12 @@ V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
-Vd = V_on;
 Is = 1e-14;
 rd = 56.79666793;
 Req = R+19*rd;
+Vd = V_on-rd*4.024978e-04;
 
-f = (A-19*V_on)*exp(-(t-1/(4*50))/(Req*C))+19*V_on - absv(t);
+f = (A-19*Vd)*exp(-(t-1/(4*50))/(Req*C))+19*Vd - absv(t);
 endfunction
 
 function fd = fd(t)
@@ -70,12 +70,12 @@ V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
-Vd = V_on;
 Is = 1e-14;
 rd = 56.79666793;
 Req = R + 19*rd;
+Vd = V_on-rd*4.024978e-04;
 
-fd = -(A-19*V_on)/R/C*exp(-(t-1/(4*50))/(Req*C)) - absv_d(t);
+fd = -(A-19*Vd)/R/C*exp(-(t-1/(4*50))/(Req*C)) - absv_d(t);
 endfunction
 
 t=linspace(0, 100e-3, 1000);
@@ -140,7 +140,7 @@ for i=1:length(t)
 endfor
 
 for i=1:length(t)
-  y4(i) = 19*V_on-19*rd*C*y3d(i)-0.40875;
+  y4(i) = 19*Vd-19*rd*C*y3d(i);
 endfor
 
 figure
@@ -201,7 +201,7 @@ printf("%f \n", data(15));
 
 file = fopen("simtab.tex", "w");
 
-fprintf(file, " & Theoretical Analysis & Simulation \\\\ \n\\hline \navg(vo-12) & %.10f & %.10f \\\\ \n\\hline \nRipple & %.10f & %.10f \\\\ \n\\hline", dclevel-12, data(7)-12, ripple, data(15));
+fprintf(file, " & Theoretical Analysis & Simulation \\\\ \n\\hline \navg(vo-12) & %.10f & %.10f \\\\ \n\\hline \nRipple & %.10f & %.10f \\\\ \n\\hline", abs(dclevel-12), data(7)-12, ripple, data(15));
 
 fclose(file);
 
