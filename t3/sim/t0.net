@@ -19,13 +19,14 @@ Vt nt n2 0
 **** Envelope detector ****
 
 D1 0 n3 Default
-D2 n3 n4 Default
+D2 n3 ntt Default
+Vtt ntt n4 0
 D3 0 n2 Default
 D4 n2 n4 Default
 
 
 *R n4 0 100k
-C1 n4 0 412u
+C1 n4 0 420u
 
 
 
@@ -34,7 +35,8 @@ C1 n4 0 412u
 * positive limiter
 
 R2 n4 n5 369.982k
-Dp n5 0 D_series
+Dp n5 nttt D_series
+Vttt nttt 0 0
 
 
 
@@ -51,6 +53,8 @@ Dp n5 0 D_series
 .measure tran yavg AVG v(n5) from=0.1 to=0.3
 .measure tran ymax MAX v(n5) from=0.1 to=0.3
 .measure tran ymin MIN v(n5) from=0.1 to=0.3
+.measure tran imax MAX i(Vttt) from=0.1 to=0.3
+.measure tran imin MIN i(Vttt) from=0.1 to=0.3
 
 .control
 
@@ -60,8 +64,8 @@ tran 1e-5 0.4 0.2
 
 
 ******************************************
-hardcopy vout.ps v(n3)-v(n2) v(n5)
-hardcopy venv.ps v(n3)-v(n2) v(n4)
+hardcopy venvout.ps v(n3)-v(n2) v(n5) v(n4)
+hardcopy vdiff.ps v(n5)-12V
 
 
 .endc

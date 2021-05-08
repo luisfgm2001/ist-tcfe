@@ -1,74 +1,195 @@
-close all
+close all 
 clear all
 
-%%EXAMPLE SYMBOLIC COMPUTATIONS
 
-pkg load symbolic
-
-syms t
-syms R
-syms C
-syms vi(t)
-syms vo(t)
-syms i(t)
-
-i(t)=C*diff(vo,t)
-
-printf("\n\nKVL equation:\n");
-
-vi(t) = R*i(t)+vo(t)
-
-syms vo_n(t) %natural solution
-syms vo_f(t) %forced solution
-
-printf("\n\nSolution is of the form");
-
-v(t) = vo_n(t) + vo_f(t)
-
-printf("\n\nNatural solution:\n");
-syms A
-syms wn
-
-vi(t) = 0 %no excitation
-i_n(t) = C*diff(vo_n, t)
+C = 420e-6;
+A = 0.70609*230;
+w = 2*pi*50;
+V_on = 12./19.;
+R = 369982;
+eta = 1;
+Vt = 25.9e-3;
+Vd = V_on;
+Is = 1e-14;
+rd = 56.79666793;
 
 
-printf("\n\n Natural solution is of the form");
-vo_n(t) = A*exp(wn*t)
+function absv = absv(t)
+  A = 0.70609*230;
+  w = 2*pi*50;
+  
+  absv = 0;
 
-R*i_n(t)+vo_n(t) == 0
+  if(sin(w*t) >= 0)
+    absv = A*sin(w*t);
+  else
+    absv = -A*sin(w*t);
+  endif
+  
+endfunction
 
-R*C*wn*vo_n(t)+vo_n(t) == 0
-
-R*C*wn+1==0
-
-solve(ans, wn)
 
 
-%%EXAMPLE NUMERIC COMPUTATIONS
+function absv_d = absv_d(t)
+  A = 0.70609*230;
+  w = 2*pi*50;
+  
+  if(sin(w*t) >= 0)
+    absv_d = A*w*cos(w*t);
+  else
+    absv_d = -A*w*cos(w*t);
+  endif
+  
+endfunction
 
-R=1e3 %Ohm
-C=100e-9 %F
 
-f = 1000 %Hz
-w = 2*pi*f; %rad/s
 
-%time axis: 0 to 10ms with 1us steps
-t=0:1e-6:10e-3; %s
+function f = f(t)
+C = 420e-6;
+A = 0.70609*230;
+w = 2*pi*50;
+V_on = 12./19.;
+R = 369982;
+eta = 1;
+Vt = 25.9e-3;
+Vd = V_on;
+Is = 1e-14;
+rd = 56.79666793;
+Req = R+19*rd;
 
-Zc = 1/(j*w*C)
-Cgain = Zc/(R+Zc)
-Gain = abs(Cgain)
-Phase = angle(Cgain)
+f = (A-19*V_on)*exp(-(t-1/(4*50))/(Req*C))+19*V_on - absv(t);
+endfunction
 
-vi = 1*cos(w*t);
-vo = Gain*cos(w*t+Phase);
+function fd = fd(t)
+C = 420e-6;
+A = 0.70609*230;
+w = 2*pi*50;
+V_on = 12./19.;
+R = 369982;
+eta = 1;
+Vt = 25.9e-3;
+Vd = V_on;
+Is = 1e-14;
+rd = 56.79666793;
+Req = R + 19*rd;
 
-hf = figure ();
-plot (t*1000, vi, "g");
+fd = -(A-19*V_on)/R/C*exp(-(t-1/(4*50))/(Req*C)) - absv_d(t);
+endfunction
+
+t=linspace(0, 100e-3, 1000);
+y=zeros(1, 1000);
+
+for i=1:length(t)
+  y(i) = f(t(i));
+endfor
+
+figure
+plot(t*1000, y)
+title("y(t)")
+xlabel ("t[ms]")
+ylabel ("y[A]")
+print ("y.eps", "-depsc");
+
+
+delta = 1e-9;
+x_next = 14.8e-3;
+
+
+do 
+  x=x_next;
+  x_next = x  - f(x)/fd(x);
+  printf("%.10f \n", x);
+until (abs(x_next-x) < delta)
+
+ton_root = x_next;
+
+printf("%.10f \n", ton_root);
+
+function fdec = fdec(t, ton_root)
+  fdec = f(t)+absv(t);
+  
+  modt = t*50 - floor(t*50);
+  
+  if(modt<=ton_root*50-0.5 || (modt>=ton_root*50 && modt<=0.75))
+    fdec = absv(t);
+  endif
+endfunction
+
+
+t=linspace(0, 100e-3, 1000);
+y1=zeros(1, 1000);
+y2=zeros(1,100);
+y3=zeros(1,1000);
+y2d=zeros(1,100);
+y3d=zeros(1,1000);
+y4=zeros(1,1000);
+
+for i=1:length(t)
+  y1(i) = absv(t(i));
+endfor
+
+for i=1:100
+  if(t(i)+1/4/50 < ton_root)
+    y2(i) = f(t(i)+1/4/50)+absv(t(i)+1/4/50);
+    y2d(i) = fd(t(i)+1/4/50)+absv_d(t(i)+1/4/50);
+  else
+    y2(i) = absv(t(i)+1/4/50);
+    y2d(i) = absv_d(t(i)+1/4/50);
+  endif
+endfor
+
+for i=1:length(t)
+  y3(i) = y2(mod(i+50,100)+1);
+  y3d(i) = y2d(mod(i+50,100)+1);
+endfor
+
+for i=1:length(t)
+  y4(i) = y3(i)+R*C*y3d(i);
+endfor
+
+printf("%f \n", y4(500));
+
+figure
+plot(t*1000, y1)
 hold on;
-plot (t*1000, vo, "b");
+plot(t*1000, y3)
+hold on
+plot(t*1000, y4)
+title("y(t)")
+xlabel ("t[ms]")
+ylabel ("y[A]")
+axis([0,100,0,170]);
+print ("y.eps", "-depsc");
 
-xlabel ("t[ms]");
-ylabel ("vi(t), vo(t) [V]");
-print (hf, "forced.eps", "-depsc");
+figure
+plot(t*1000, y4-12);
+title("y(t)")
+xlabel ("t[ms]")
+ylabel ("y[A]")
+print ("diff.eps", "-depsc");
+
+dclevel = 0;
+maxvo = y4(1);
+minvo = y4(1);
+
+for i=1:1000
+  dclevel = dclevel + y4(i);
+  
+  if(y4(i)>maxvo)
+    maxvo = y4(i);
+  endif
+  
+  if(y4(i)<minvo)
+    minvo = y4(i);
+  endif
+endfor
+
+dclevel = dclevel/1000;
+
+ripple = maxvo-minvo;
+
+printf("%.10f \n", dclevel);
+printf("%.10f \n", ripple);
+
+
+
