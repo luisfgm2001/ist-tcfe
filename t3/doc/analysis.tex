@@ -1,67 +1,72 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:converter}, we start by developing a model able to predict the output of the envelope detector and voltage regulator, resorting to Octave. \\
 
-\section{Time response}
+The first one is composed of a full wave bridge rectifier and a capacitor and the second one of a resistor in series with 19 diodes. In its turn, the full wave bridge rectifier computes the absolute value of the signal in the secondary winding of the transformer, whose amplitude is $A=0.70609 \times 230=162.4007V$. \\
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+Formerly, the current that flows through the capacitor is negative and increasing in modulus until the current flowing through the diodes in the rectifier reaches zero. At that instant, the diodes turn off. For a converter with a small ripple, like ours, we can consider that this instant, $t_{off}$, corresponds to the moment the voltage reaches its peak. Before that moment, the capacitor is charging and its voltage is equal to the voltage in the secondary winding, and subsequently, it discharges through the voltage regulator.\\
 
-\begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
-  \label{eq:kvl}
-\end{equation}
+When the diodes are turned off we can analyse the subcircuit in Figure~\ref{fig:oluisefeio}, in order to determine how the capacitor discharges.
 
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
-\begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
-\end{equation}
-
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
-\begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
-\end{equation}
-
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
-
-\begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
-\end{equation}
-
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in Figure~\ref{fig:forced}.
-
-\begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
-\end{equation}
-
-\lipsum[1-1]
-
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{forced.eps}
-\caption{Forced sinusoidal response.}
-\label{fig:forced}
+\begin{figure}[H] \centering
+\includegraphics[width=1\linewidth]{oluisefeio.pdf}
+\caption{Circuit for the dischargement of the capacitor.}
+\label{fig:oluisefeio}
 \end{figure}
 
-\section{Frequency response}
+In this circuit, we replaced each diode by a voltage source, $V_{on}$, and a resistor with resistance $r_d$, quantities that depend on the operating point of the diodes. Within this framework, we considered that $V_{on} = 0.63V$ and $r_d = 56.79666793 \Omega$.\\
 
-\lipsum[1-1]
+Applying KVL, we obtain:
 
+\begin{equation}
+v_C + (R+19 r_d) C \odv{v_C}{t} = 19V_{on}
+\end{equation}
 
+By solving this differential equation, and considering that, at $t=t_{off}$, $v_C=A$, we conclude that, during the discharge,
+
+\begin{equation}
+v_C(t) = (A-19V_{on})e^{-\frac{t-t_{off}}{(R+19r_d)C}}+19V_{on}
+\end{equation}
+
+In its turn, the capacitor discharges until its voltage is equal to the voltage rectified by the bridge, i.e.,
+
+\begin{equation}
+(A-19V_{on})e^{-\frac{t_{on}-t_{off}}{(R+19r_d)C}}+19V_{on} = A\left|sin(2\pi ft_{on})\right|
+\end{equation}
+
+The instant $t_{on}$ was determined by solving this equation with the Newton-Raphson method. \\
+
+Note that, after this instant, the capacitor recharges and its voltage returns to corresponding to the voltage in the secondary winding. Taking this into account, we determined the voltage in the capacitor, which corresponds to the output voltage of the envelope detector, at each instant of time. Furthermore, we computed the output voltage of the voltage detector, which is given by:
+
+\begin{equation}
+v_o = 19V_{on}-19 r_d C\odv{v_C}{t}
+\end{equation}
+
+The plots of the output voltages of the envelope detector and voltage regulator circuits are shown in Figure~\ref{fig:teorplots}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{y.eps}
+\caption{Plots of the output voltages of the envelope detector (blue) and voltage regulator (red) circuits obtained theoretically.}
+\label{fig:teorplots}
+\end{figure}
+
+In order to analyse more closely the deviation of the output signal from 12V, which was the objective of this assignment, we plotted the difference $v_o-12$, as we can see in Figure~\ref{fig:diff}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{diff.eps}
+\caption{Deviation of the output signal from 12V obtained theoretically.}
+\label{fig:diff}
+\end{figure}
+
+Finally, we managed to calculate the DC level of the output voltage, which corresponds to the average of $v_o$, as well as its its ripple, this being, the difference $max(v_o)-min(v_o)$. The results are displayed in Table~\ref{tab:teortab}.
+
+\begin{center}
+\begin{tabular}{ | c | c | }\hline
+DC Level & Ripple \\
+\hline
+\input{../mat/teor} 
+\end{tabular}
+\captionof{table}[]{DC level and ripple of $V_o$.}
+\label{tab:teortab}
+\end{center}
