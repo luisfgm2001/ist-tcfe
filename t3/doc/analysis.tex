@@ -15,24 +15,24 @@ When the diodes are turned off we can analyse the subcircuit in Figure~\ref{fig:
 \label{fig:oluisefeio}
 \end{figure}
 
-In this circuit, we replaced each diode by a voltage source, $V_{on}$, and a resistor with resistance $r_d$, quantities that depend on the operating point of the diodes. Within this framework, we considered that $V_{on} = 0.63V$ and $r_d = 56.79666793 \Omega$.\\
+In this circuit, we replaced each diode by a voltage source, $V_d$, and a resistor with resistance $r_d$, quantities that depend on the operating point of the diodes. Within this framework, we considered that $V_d = \frac{12}{19} - r_d \times I_d \approx 0.6088 V$ and $r_d = 56.79666793 \Omega$.\\
 
 Applying KVL, we obtain:
 
 \begin{equation}
-v_C + (R+19 r_d) C \odv{v_C}{t} = 19V_{on}
+v_C + (R+19 r_d) C \odv{v_C}{t} = 19V_d
 \end{equation}
 
 By solving this differential equation, and considering that, at $t=t_{off}$, $v_C=A$, we conclude that, during the discharge,
 
 \begin{equation}
-v_C(t) = (A-19V_{on})e^{-\frac{t-t_{off}}{(R+19r_d)C}}+19V_{on}
+v_C(t) = (A-19V_d)e^{-\frac{t-t_{off}}{(R+19r_d)C}}+19V_d
 \end{equation}
 
 In its turn, the capacitor discharges until its voltage is equal to the voltage rectified by the bridge, i.e.,
 
 \begin{equation}
-(A-19V_{on})e^{-\frac{t_{on}-t_{off}}{(R+19r_d)C}}+19V_{on} = A\left|sin(2\pi ft_{on})\right|
+(A-19V_d)e^{-\frac{t_{on}-t_{off}}{(R+19r_d)C}}+19V_d = A\left|sin(2\pi ft_{on})\right|
 \end{equation}
 
 The instant $t_{on}$ was determined by solving this equation with the Newton-Raphson method. \\
@@ -40,7 +40,7 @@ The instant $t_{on}$ was determined by solving this equation with the Newton-Rap
 Note that, after this instant, the capacitor recharges and its voltage returns to corresponding to the voltage in the secondary winding. Taking this into account, we determined the voltage in the capacitor, which corresponds to the output voltage of the envelope detector, at each instant of time. Furthermore, we computed the output voltage of the voltage detector, which is given by:
 
 \begin{equation}
-v_o = 19V_{on}-19 r_d C\odv{v_C}{t}
+v_o = 19V_d-19 r_d C\odv{v_C}{t}
 \end{equation}
 
 The plots of the output voltages of the envelope detector and voltage regulator circuits are shown in Figure~\ref{fig:teorplots}.
@@ -51,7 +51,7 @@ The plots of the output voltages of the envelope detector and voltage regulator 
 \label{fig:teorplots}
 \end{figure}
 
-In order to analyse more closely the deviation of the output signal from 12V, which was the objective of this assignment, we plotted the difference $v_o-12$, as we can see in Figure~\ref{fig:diff}.
+In order to analyse more closely the deviation of the output signal from $12V$, which was the objective of this assignment, we plotted the difference $v_o-12$, as we can see in Figure~\ref{fig:diff}.
 
 \begin{figure}[H] \centering
 \includegraphics[width=0.6\linewidth]{diff.eps}
