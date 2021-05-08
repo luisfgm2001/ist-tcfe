@@ -5,7 +5,7 @@ clear all
 C = 420e-6;
 A = 0.70609*230;
 w = 2*pi*50;
-V_on = 12./19.;
+V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
@@ -48,7 +48,7 @@ function f = f(t)
 C = 420e-6;
 A = 0.70609*230;
 w = 2*pi*50;
-V_on = 12./19.;
+V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
@@ -64,7 +64,7 @@ function fd = fd(t)
 C = 420e-6;
 A = 0.70609*230;
 w = 2*pi*50;
-V_on = 12./19.;
+V_on = 0.63;
 R = 369982;
 eta = 1;
 Vt = 25.9e-3;
@@ -144,14 +144,10 @@ for i=1:length(t)
 endfor
 
 for i=1:length(t)
-  y4(i) = y3(i)+R*C*y3d(i);
+  y4(i) = 19*V_on-19*rd*C*y3d(i)-0.40875;
 endfor
 
-printf("%f \n", y4(500));
-
 figure
-plot(t*1000, y1)
-hold on;
 plot(t*1000, y3)
 hold on
 plot(t*1000, y4)

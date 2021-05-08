@@ -58,14 +58,23 @@ Vttt nttt 0 0
 
 .control
 
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
 ******************************************
 * analise no tempo
 tran 1e-5 0.4 0.2
 
 
 ******************************************
-hardcopy venvout.ps v(n3)-v(n2) v(n5) v(n4)
-hardcopy vdiff.ps v(n5)-12V
+hardcopy venvout.ps v(n5) v(n4)
+hardcopy vdiff.ps v(n5)-12
 
 
 .endc
