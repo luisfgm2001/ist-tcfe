@@ -85,12 +85,6 @@ for i=1:length(t)
   y(i) = f(t(i));
 endfor
 
-figure
-plot(t*1000, y)
-title("y(t)")
-xlabel ("t[ms]")
-ylabel ("y[A]")
-print ("y.eps", "-depsc");
 
 
 delta = 1e-9;
@@ -153,17 +147,15 @@ figure
 plot(t*1000, y3)
 hold on
 plot(t*1000, y4)
-title("y(t)")
 xlabel ("t[ms]")
-ylabel ("y[A]")
+ylabel ("v[V]")
 axis([0,100,0,170]);
 print ("y.eps", "-depsc");
 
 figure
 plot(t*1000, y4-12);
-title("y(t)")
 xlabel ("t[ms]")
-ylabel ("y[A]")
+ylabel ("vo-12[V]")
 print ("diff.eps", "-depsc");
 
 dclevel = 0;
