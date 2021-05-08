@@ -188,4 +188,9 @@ printf("%.10f \n", dclevel);
 printf("%.10f \n", ripple);
 
 
+file = fopen("teor.tex", "w");
+
+fprintf(file, "1 & %.10f & %.10f  \\\\ \\hline\n", dclevel, ripple);
+
+fclose(file);
 

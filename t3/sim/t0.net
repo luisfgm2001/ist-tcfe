@@ -50,13 +50,11 @@ Vttt nttt 0 0
 .end
 
 
-.measure tran yavg AVG v(n5) from=0.1 to=0.3
-.measure tran ymax MAX v(n5) from=0.1 to=0.3
-.measure tran ymin MIN v(n5) from=0.1 to=0.3
-.measure tran imax MAX i(Vttt) from=0.1 to=0.3
-.measure tran imin MIN i(Vttt) from=0.1 to=0.3
+
 
 .control
+
+
 
 set hcopypscolor=1
 set color0=white
@@ -74,7 +72,25 @@ tran 1e-5 0.4 0.2
 
 ******************************************
 hardcopy venvout.ps v(n5) v(n4)
+echo venvout_FIG
 hardcopy vdiff.ps v(n5)-12
+echo vdiff_FIG
+
+meas tran yavg AVG v(n5) from=0.1 to=0.3
+meas tran ymax MAX v(n5) from=0.1 to=0.3
+meas tran ymin MIN v(n5) from=0.1 to=0.3
+meas tran imax MAX i(Vttt) from=0.1 to=0.3
+meas tran imin MIN i(Vttt) from=0.1 to=0.3
+
+let voavg = yavg
+let ripple = ymax-ymin
+
+echo  "op_TAB"
+print voavg
+print ripple
+echo  "op_END"
+
+echo
 
 
 .endc
