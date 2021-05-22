@@ -1,0 +1,72 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:converter}, we start by developing a model able to predict the output of the envelope detector and voltage regulator, resorting to Octave. \\
+
+The first one is composed of a full wave bridge rectifier and a capacitor and the second one of a resistor in series with 19 diodes. In its turn, the full wave bridge rectifier computes the absolute value of the signal in the secondary winding of the transformer, whose amplitude is $A=0.70609 \times 230=162.4007V$. \\
+
+Formerly, the current that flows through the capacitor is negative and increasing in modulus until the current flowing through the diodes in the rectifier reaches zero. At that instant, the diodes turn off. For a converter with a small ripple, like ours, we can consider that this instant, $t_{off}$, corresponds to the moment the voltage reaches its peak. Before that moment, the capacitor is charging and its voltage is equal to the voltage in the secondary winding, and subsequently, it discharges through the voltage regulator.\\
+
+When the diodes are turned off we can analyse the subcircuit in Figure~\ref{fig:oluisefeio}, in order to determine how the capacitor discharges.
+
+\begin{figure}[H] \centering
+\includegraphics[width=1\linewidth]{oluisefeio.pdf}
+\caption{Circuit for the dischargement of the capacitor.}
+\label{fig:oluisefeio}
+\end{figure}
+
+In this circuit, we replaced each diode by a voltage source, $V_d$, and a resistor with resistance $r_d$, quantities that depend on the operating point of the diodes. Within this framework, we considered that $V_d = \frac{12}{19} - r_d \times I_d \approx 0.6088 V$ and $r_d = 56.79666793 \Omega$.\\
+
+Applying KVL, we obtain:
+
+\begin{equation}
+v_C + (R+19 r_d) C \odv{v_C}{t} = 19V_d
+\end{equation}
+
+By solving this differential equation, and considering that, at $t=t_{off}$, $v_C=A$, we conclude that, during the discharge,
+
+\begin{equation}
+v_C(t) = (A-19V_d)e^{-\frac{t-t_{off}}{(R+19r_d)C}}+19V_d
+\end{equation}
+
+In its turn, the capacitor discharges until its voltage is equal to the voltage rectified by the bridge, i.e.,
+
+\begin{equation}
+(A-19V_d)e^{-\frac{t_{on}-t_{off}}{(R+19r_d)C}}+19V_d = A\left|sin(2\pi ft_{on})\right|
+\end{equation}
+
+The instant $t_{on}$ was determined by solving this equation with the Newton-Raphson method. \\
+
+Note that, after this instant, the capacitor recharges and its voltage returns to corresponding to the voltage in the secondary winding. Taking this into account, we determined the voltage in the capacitor, which corresponds to the output voltage of the envelope detector, at each instant of time. Furthermore, we computed the output voltage of the voltage detector, which is given by:
+
+\begin{equation}
+v_o = 19V_d-19 r_d C\odv{v_C}{t}
+\end{equation}
+
+The plots of the output voltages of the envelope detector and voltage regulator circuits are shown in Figure~\ref{fig:teorplots}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{y.eps}
+\caption{Plots of the output voltages of the envelope detector (blue) and voltage regulator (red) circuits obtained theoretically.}
+\label{fig:teorplots}
+\end{figure}
+
+In order to analyse more closely the deviation of the output signal from $12V$, which was the objective of this assignment, we plotted the difference $v_o-12$, as we can see in Figure~\ref{fig:diff}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{diff.eps}
+\caption{Deviation of the output signal from 12V obtained theoretically.}
+\label{fig:diff}
+\end{figure}
+
+Finally, we managed to calculate the DC level of the output voltage, which corresponds to the average of $v_o$, as well as its its ripple, this being, the difference $max(v_o)-min(v_o)$. The results are displayed in Table~\ref{tab:teortab}.
+
+\begin{center}
+\begin{tabular}{ | c | c | }\hline
+DC Level & Ripple \\
+\hline
+\input{../mat/teor} 
+\end{tabular}
+\captionof{table}[]{DC level and ripple of $V_o$.}
+\label{tab:teortab}
+\end{center}
