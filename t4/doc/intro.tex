@@ -1,34 +1,34 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The objective of this laboratory assignment is to design an AC/DC converter, which converts a signal of alternating current of $230V$ and frequency of $50 Hz$ to direct current of $12V$. In order to achieve this goal, we made use of a transformer to lower the voltage to $0.70609$ of the input voltage. In addition, we had at our disposal resistors, regular diodes and capacitors, whose costs are organized in Table~\ref{tab:costs}.
+The objective of this laboratory assignment is to design an Audio Amplifier, which converts a signal of alternating current of $230V$ and frequency of $50 Hz$ to direct current of $12V$. In order to achieve this goal, we made use of a transformer to lower the voltage to $0.70609$ of the input voltage. In addition, we had at our disposal resistors, capacitors, and NPN and PNP transistors, whose costs are presented in Table~\ref{tab:costs}.
 
 \begin{center}
 \begin{tabular}{ | c | c | }\label{tab:costs}
 Component & Cost \\
 \hline
-Resistors & $1$ MU/k$\Omega$ \\ 
-Diodes & $0.1$ MU/diode \\  
-Capacitors & $1$ MU/$\mu$ F    
+Resistors & $1$ MU/k$\Omega$ \\  
+Capacitors & $1$ MU/$\mu$ F \\
+Transistors & $0.1$ MU/transistor    
 \end{tabular}
 \captionof{table}[]{Cost of the components of the circuit.}
 \end{center}
 
-The following quantity, merit $M$, is defined with the purpose of evaluating the quality of the converter:
+The following quantity, merit $M$, is defined with the purpose of evaluating the quality of the audio amplifier:
 
 \begin{equation}
-  M = \frac{1}{cost \times (ripple(v_o) + average(v_o-12) + 10^{-6})}
+  M = \frac{voltageGain \times bandwidth}{cost \times lowerCutoffFreq}
 \end{equation}
 
-Thus, the higher the value of the function, the better the quality of the converter.\\
+Thus, the higher the value of the function, the better its quality.\\
 
-With this in mind, we built the circuit illustrated in Figure~\ref{fig:converter}, with a resistor with resistance $R = 369.982$ $k\Omega$, a capacitor with capacitance $C = 420$ $\mu F$ and $4+19$ regular diodes.
+With this in mind, we built the circuit illustrated in Figure~\ref{fig:amplifier}, with a resistor with resistance $R = 369.982$ $k\Omega$, a capacitor with capacitance $C = 420$ $\mu F$ and $4+19$ regular diodes.
 
 \begin{figure}[H] \centering
-\includegraphics[width=1\linewidth]{converter.pdf}
-\caption{AC/DC Converter.}
-\label{fig:converter}
+\includegraphics[width=1\linewidth]{amplifier.pdf}
+\caption{Audio Amplifier.}
+\label{fig:amplifier}
 \end{figure}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the converter, where we develop a model able to predict the output of the envelope detector and voltage regulator circuits and compute the output DC level and the voltage ripple. In Section~\ref{sec:simulation}, we write a Ngspice script to simulate the AC/DC converter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed converter.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the audio amplifier, where we develop a model able to predict the output of the envelope detector and voltage regulator circuits and compute the output DC level and the voltage ripple. In Section~\ref{sec:simulation}, we write a Ngspice script to simulate the AC/DC converter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
 
