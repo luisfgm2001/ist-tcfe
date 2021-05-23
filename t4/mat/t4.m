@@ -1,5 +1,3 @@
-%gain stage
-
 VT=25e-3
 BFN=178.7
 BFP=227.3
@@ -94,7 +92,7 @@ ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
 
 Cin = 102e-6
 Cb = 2185e-6
-Co = 1466e-6
+Cout = 1466e-6
 RE = 200
 rpi2 = 1/gpi2
 ro2 = 1/go2
@@ -111,14 +109,14 @@ for t=1:0.1:8
 	Zeb=1/(1/RE+j*w*Cb);
 	Rcpi2 = 1/(1/RC+1/rpi2);
 	Ro2out = 1/(1/ro2+1/Rout);
-	Zco=1/(j*w*Co);
+	Zcout=1/(j*w*Cout);
 	
 	A=[Zin+RB,-RB,0,0,0,0;
 	-RB,RB+rpi1+Zeb,-Zeb,0,0,0;
 	0,gm1*rpi1,1,0,0,0;
 	0,-Zeb,-ro1,Rcpi2+Zeb+ro1,0,0;
 	0,0,0,gm2*Rcpi2,1,0;
-	0,0,0,0,-Ro2out,Zco+RL+Ro2out];
+	0,0,0,0,-Ro2out,Zcout+RL+Ro2out];
 	
 	B=[vin;0;0;0;0;0];
 	
