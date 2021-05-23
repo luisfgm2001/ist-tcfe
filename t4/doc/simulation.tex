@@ -37,9 +37,9 @@ In addition to theoretical analysis, we computed a simulation of the audio ampli
 
 \vspace{3mm}
 
-Analysing the obtained values, one notices that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which allows us to conclude that the transistors are operating in the F.A.R.. \\
+By analysing the obtained values, one notices that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which allows us to conclude that the transistors are operating in the F.A.R.. Moreover, one can see clearly that both the Octave and Ngspice analysis are pretty similar, being the difference always smaller than 0.1.\\
 
-Furthermore, the gain for the total circuit as a function of the frequency in logarithmic scale is illustrated in Figure~\ref{fig:sim}. Next to it, is the same graph, obtained previously by theoretical analysis.
+Furthermore, the gain for the total circuit as a function of the frequency in logarithmic scale is illustrated in Figure~\ref{fig:sim}. Next to it, is the same plot, obtained previously by theoretical analysis.
 
 \vspace{-25mm}
 
@@ -67,13 +67,17 @@ Furthermore, the gain for the total circuit as a function of the frequency in lo
 
 \vspace{10mm}
 
+By observation of the plots, one can see that, for low frequencies, the gain varies similarly, as it also attains a maximum gain in the passband that is approximately the same in both analysis. On the other hand, for frequencies of the order of $1MHz$, the gain starts to decrease in the simulation plot, although it maintains constant in the theoretical one. \\
+
 In an attempt to get a lower cutoff frequency, we ran several simulations, changing the capacity of the input coupling capacitor, $C_{in}$. With these simulations, we were able to reach a balance between the cost and a frequency that wouldn't be much high.\\
 
 Regarding the bypass capacitor, we can consider that the purpose of $C_b$ is to bypass the resistor $R_e$, which reduces the gain, although it stabilises the temperature effect. Hence, the bypass capacitor produces the gain stabilisation in the desired passband, as it works both as an open circuit for low frequencies (DC) and as a short circuit for higher frequencies (AC).\\
 
 In what concerns $R_C$, the higher its resistance value, the higher the gain obtained in the gain stage. Similarly to what we did with $C_{in}$, it was also necessary to run simulations with different values for $R_C$, in order to find an efficient balance between its cost and the gain. \\
 
-The values obtained for the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances are listed in Table~\ref{tab:spice}, once again, side by side to the ones obtained theoretically.
+The values obtained for the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances are listed in Table~\ref{tab:spice}, side by side to the ones obtained with Octave.
+
+\vspace{5mm}
 
 \noindent
 \begin{minipage}[c]{0.5\linewidth}
@@ -92,6 +96,8 @@ The values obtained for the output voltage gain in the passband, the lower and u
  
 \end{minipage}
 \begin{minipage}[c]{0.5\linewidth}
+
+\vspace{-5mm}
  
  \begin{table}[H]
  \centering
@@ -107,4 +113,22 @@ The values obtained for the output voltage gain in the passband, the lower and u
  
 \end{minipage}
 
+\vspace{10mm}
 
+Once again, it becomes evident that both analysis produced similar results, even though, in this case, the gain and the impedances differ by amounts that are not negligible. \\
+
+The aforementioned discrepancies can be explained by the fact that, in the theoretical analysis, we used a simple approximated model of the transistors, while the model used in Ngspice is far more complex and, consequently, closer to reality.
+
+Finally, to calculate the merit $M$ of the amplifier, we used the values obtained by simulation. They should be more reliable, since in the theoretical analysis we considered several approximations that may have affected the results. The merit $M$, as well as the values required to its calculation, are illustrated in Table~\ref{tab:merit}.
+
+\vspace{2mm}
+
+\begin{center}
+\begin{tabular}{ | c | c | }\hline
+\input{../mat/merit_tab} 
+\end{tabular}
+\captionof{table}[]{Merit of the amplifier.}
+\label{tab:merit}
+\end{center}
+
+Even though we were able to achieve a high value for the merit, it is important to mention that we could make some changes to our amplifier that would make this quantity even bigger, but would result in some significant deformation in the output signal. Therefore, the values chosen for the components of the circuit took into account this balance between the quality of the amplifier, i.e., the merit, and the deformation of the output signal.

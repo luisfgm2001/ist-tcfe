@@ -12,8 +12,9 @@ Resistors & 1 MU/k$\Omega$ \\
 Capacitors & 1 MU/$\mu$F \\
 Transistors & 0.1 MU/transistor \\
 \hline   
-\end{tabular}\label{tab:costs}
+\end{tabular}
 \captionof{table}[]{Cost of the components of the circuit.}
+\label{tab:costs}
 \end{center}
 
 The following quantity, merit $M$, is defined with the purpose of evaluating the quality of the audio amplifier:
@@ -32,7 +33,7 @@ With this in mind, we built the circuit illustrated in Figure~\ref{fig:amplifier
 \label{fig:amplifier}
 \end{figure}
 
-\begin{center}
+\begin{center} 
 \begin{tabular}{ | c | c | }
 \hline
 \textbf{Component} & \textbf{Value} \\
@@ -61,8 +62,9 @@ $C_b$ & 2185 $\mu$ \\
 \hline
 $C_{out}$ & 1466 $\mu$ \\
 \hline
-\end{tabular}\label{tab:components}
+\end{tabular}
 \captionof{table}[]{Values of the components of the circuit.}
+\label{tab:components}
 \end{center}
 
 In Table~\ref{tab:transistors} are also listed some important parameters of the BJT transistors used, which will be considered in the theoretical analysis.
@@ -86,9 +88,10 @@ $V_{{BE}_{ON}}$ & 0.7 V \\
 \hline
 $V_{{EB}_{ON}}$ & 0.7 V \\
 \hline
-\end{tabular}\label{tab:transistors}
+\end{tabular}
 \captionof{table}[]{BJT transistors parameters.}
+\label{tab:transistors}
 \end{center}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the audio amplifier, where we develop a model able to predict the gain, input and output impedances separately for both the gain and the output stages, and explain how they can be connected in order to determine these quantities for the complete circuit. Moreover, we get the theoretical frequency response using the incremental circuit. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the Audio Amplifier and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the audio amplifier, where we develop a model able to predict the gain, input and output impedances, separately for both the gain and the output stages, and explain how they can be connected in order to determine these quantities for the complete circuit. Moreover, we get the theoretical frequency response using the incremental circuit. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the Audio Amplifier and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
 

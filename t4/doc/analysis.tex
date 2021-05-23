@@ -1,100 +1,17 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:amplifier}, we started by performing an operating point analysis to check if the NPN and PNP transistors were operating in the forward active region (F.A.R.). The corresponding results are presented in Table~\ref{tab:op}. \\
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:amplifier}, we started by performing an operating point analysis with the purpose of checking if the NPN and PNP transistors were operating in the forward active region (F.A.R.). 
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value} \\ \hline
-    \input{../mat/opteor}
-  \end{tabular}
-  \caption{Circuit's characteristics in the operating point.}
-  \label{tab:op}
-\end{table}
-
-\begin{comment}
-
-The first one is composed of a full wave bridge rectifier and a capacitor and the second one of a resistor in series with 19 diodes. In its turn, the full wave bridge rectifier computes the absolute value of the signal in the secondary winding of the transformer, whose amplitude is $A=0.70609 \times 230=162.4007V$. \\
-
-Formerly, the current that flows through the capacitor is negative and increasing in modulus until the current flowing through the diodes in the rectifier reaches zero. At that instant, the diodes turn off. For a converter with a small ripple, like ours, we can consider that this instant, $t_{off}$, corresponds to the moment the voltage reaches its peak. Before that moment, the capacitor is charging and its voltage is equal to the voltage in the secondary winding, and subsequently, it discharges through the voltage regulator.\\
-
-When the diodes are turned off we can analyse the subcircuit in Figure~\ref{fig:oluisefeio}, in order to determine how the capacitor discharges.
+Thus, we first considered that the voltage sources had been on long enough, so that the capacitors were fully charged and, therefore, no current flowed through them, working as an open circuit. With that in mind, we arbitrarily assigned mesh currents in the essential meshes, $I_a$, $I_b$, $I_c$, $I_d$ and $I_e$, looping in a clockwise direction, as shown in Figure~\ref{fig:mesh}.
 
 \begin{figure}[H] \centering
-\includegraphics[width=1\linewidth]{oluisefeio.pdf}
-\caption{Circuit for the dischargement of the capacitor.}
-\label{fig:oluisefeio}
-\end{figure}
-
-In this circuit, we replaced each diode by a voltage source, $V_d$, and a resistor with resistance $r_d$, quantities that depend on the operating point of the diodes. Within this framework, we considered that $V_d = \frac{12}{19} - r_d \times I_d \approx 0.6088 V$ and $r_d = 56.79666793 \Omega$.\\
-
-Applying KVL, we obtain:
-
-\begin{equation}
-v_C + (R+19 r_d) C \odv{v_C}{t} = 19V_d
-\end{equation}
-
-By solving this differential equation, and considering that, at $t=t_{off}$, $v_C=A$, we conclude that, during the discharge,
-
-\begin{equation}
-v_C(t) = (A-19V_d)e^{-\frac{t-t_{off}}{(R+19r_d)C}}+19V_d
-\end{equation}
-
-In its turn, the capacitor discharges until its voltage is equal to the voltage rectified by the bridge, i.e.,
-
-\begin{equation}
-(A-19V_d)e^{-\frac{t_{on}-t_{off}}{(R+19r_d)C}}+19V_d = A\left|sin(2\pi ft_{on})\right|
-\end{equation}
-
-The instant $t_{on}$ was determined by solving this equation with the Newton-Raphson method. \\
-
-Note that, after this instant, the capacitor recharges and its voltage returns to corresponding to the voltage in the secondary winding. Taking this into account, we determined the voltage in the capacitor, which corresponds to the output voltage of the envelope detector, at each instant of time. Furthermore, we computed the output voltage of the voltage detector, which is given by:
-
-\begin{equation}
-v_o = 19V_d-19 r_d C\odv{v_C}{t}
-\end{equation}
-
-The plots of the output voltages of the envelope detector and voltage regulator circuits are shown in Figure~\ref{fig:teorplots}.
-
-\begin{figure}[H] \centering
-\includegraphics[width=0.6\linewidth]{y.eps}
-\caption{Plots of the output voltages of the envelope detector (blue) and voltage regulator (red) circuits obtained theoretically.}
-\label{fig:teorplots}
-\end{figure}
-
-In order to analyse more closely the deviation of the output signal from $12V$, which was the objective of this assignment, we plotted the difference $v_o-12$, as we can see in Figure~\ref{fig:diff}.
-
-\begin{figure}[H] \centering
-\includegraphics[width=0.6\linewidth]{diff.eps}
-\caption{Deviation of the output signal from 12V obtained theoretically.}
-\label{fig:diff}
-\end{figure}
-
-Finally, we managed to calculate the DC level of the output voltage, which corresponds to the average of $v_o$, as well as its its ripple, this being, the difference $max(v_o)-min(v_o)$. The results are displayed in Table~\ref{tab:teortab}.
-
-\begin{center}
-\begin{tabular}{ | c | c | }\hline
-DC Level & Ripple \\
-\hline
-\input{../mat/teor} 
-\end{tabular}
-\captionof{table}[]{DC level and ripple of $V_o$.}
-\label{tab:teortab}
-\end{center}
-
-In order to solve the circuit in study, we started by arbitrarily assigning mesh currents in the essential meshes, $I_a$, $I_b$, $I_c$, $I_d$ and $I_e$, looping in a clockwise direction, as shown in Figure~\ref{fig:mesh}.
-
-\vspace{-8mm}
-
-\begin{figure}[H] \centering
-\includegraphics[width=0.6\linewidth]{oluisefeio.pdf}
+\includegraphics[width=0.8\linewidth]{oluisefeio.pdf}
 \caption{Mesh Analysis.}
 \label{fig:mesh}
 \end{figure}
 
-Hence, applying KVL to meshes $1$, $2$ and $3$ and equaling $I_4$ to current source value $I_d$, we deduced the following system of linear equations, whose solution is the set of assigned currents:
+Hence, we wrote five equations by applying KVL to the five essential meshes and three additional ones related with the transistors, resulting in the following system of equations:
 
 \[
 {\begin{bmatrix}
@@ -133,4 +50,76 @@ V_{cc}\\
             }
 \]
 
-\end{comment}
+The corresponding results are presented in Table~\ref{tab:op}. \\
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/opteor}
+  \end{tabular}
+  \caption{Circuit's characteristics in the operating point.}
+  \label{tab:op}
+\end{table}
+
+By analysing the obtained values, one can verify that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which indicates that both transistors are working in the F.A.R., as they should be. \\
+
+Furthermore, we managed to determine the gain and the input and output impedances, separately for the gain and the output stages of the audio amplifier, which are presented in Tables~\ref{tab:gaindata} and \ref{tab:outputdata}.
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/gaintab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances in the gain stage.}
+  \label{tab:gaindata}
+\end{table}
+
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/outputtab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances in the output stage.}
+  \label{tab:outputdata}
+\end{table}
+
+\end{minipage}
+
+By observation of Table~\ref{tab:outputdata}, one notices that the output impedance of the gain stage is very high, comparing to the resistance of the load, which is $8\Omega$. It becomes, then, evident the need to include an output stage in the circuit, to lower the output impedance of the amplifier.\\
+
+Moreover, given the results of the output stage, one can easily verify that there isn't significant loss of signal if both stages are connected, since the input impedance of this stage is a lot bigger than the output impedance of the gain stage and the gain is approximately unitary. It is also to be noted that the output impedance of the output stage is a lot smaller than $8\Omega$, showing that this stage is doing its job efficiently, allowing us to connect it to the load.
+
+Besides this, we computed the aforementioned quantities for the complete circuit. The results are shown in Table~\ref{tab:totaltab}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/totaltab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances of the total circuit}
+  \label{tab:outputdata}
+\end{table}
+
+Given these results, one can see that the gain of the complete circuit is a bit smaller than the one obtained in the gain stage, due to some signal loss between the stages. On the other hand, the output impedance is a bit bigger than the one obtained by analysing the output stage separately, although it remais considerably small. Therefore, the total circuit is also suitable to connect to the $8\Omega$ load.
+
+Finally, we analysed the incremental model of the total circuit, with the aim of determining the frequency response of the output voltage. The plot in Figure~\ref{fig:freqresp} corresponds to the gain in terms of the frequency of the voltage source.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{gainfreq.eps}
+\caption{Load output voltage gain (Frequency response).}
+\label{fig:freqresp}
+\end{figure}
