@@ -84,4 +84,53 @@ DC Level & Ripple \\
 \label{tab:teortab}
 \end{center}
 
+In order to solve the circuit in study, we started by arbitrarily assigning mesh currents in the essential meshes, $I_a$, $I_b$, $I_c$, $I_d$ and $I_e$, looping in a clockwise direction, as shown in Figure~\ref{fig:mesh}.
+
+\vspace{-8mm}
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{oluisefeio.pdf}
+\caption{Mesh Analysis.}
+\label{fig:mesh}
+\end{figure}
+
+Hence, applying KVL to meshes $1$, $2$ and $3$ and equaling $I_4$ to current source value $I_d$, we deduced the following system of linear equations, whose solution is the set of assigned currents:
+
+\[
+{\begin{bmatrix}
+R_1+R_2 & -R_1 & -R_2 & 0 & 0 & 0 & 0 & 0\\
+-R_1 & R_1+R_C & 0 & -R_C & 0 & 1 & 0 & 0\\
+-R_2 & 0 & R_E+R_2 & 0 & -R_E & 0 & 0 & 0\\
+0 & -R_C & 0 & R_C+R_{out} & 0 & 0 & 0 & 0\\
+0 & 0 & -R_E & 0 & R_E & 0 & 1 & 1\\
+0 & 0 & 0 & -\beta_{FP} & 1+\beta_{FP} & 0 & 0 & 0\\
+0 & 1+\beta_{FN} & -\beta_{FN} & 0 & -1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 1 & 1 & 0\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+I_a\\
+I_b\\
+I_c\\
+I_d\\
+I_e\\
+V_{CB1}\\
+V_{EC1}\\
+V_{BC2}\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+V_{cc}\\
+0\\
+-V_{{BE}_{ON}}\\
+-V_{{EB}_{ON}}\\
+0\\
+0\\
+0\\
+-V_{{BE}_{ON}}\\
+            \end{bmatrix}
+            }
+\]
+
 \end{comment}
