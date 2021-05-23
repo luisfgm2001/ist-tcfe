@@ -1,7 +1,20 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:converter}, we start by developing a model able to predict the output of the envelope detector and voltage regulator, resorting to Octave. \\
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:amplifier}, we started by performing an operating point analysis in order to check if the NPN and PNP transistors were operating in the forward active region. The corresponding results are presented in Table~\ref{tab:op}. \\
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/opteor}
+  \end{tabular}
+  \caption{Circuit's characteristics in the operating point.}
+  \label{tab:op}
+\end{table}
+
+\begin{comment}
 
 The first one is composed of a full wave bridge rectifier and a capacitor and the second one of a resistor in series with 19 diodes. In its turn, the full wave bridge rectifier computes the absolute value of the signal in the secondary winding of the transformer, whose amplitude is $A=0.70609 \times 230=162.4007V$. \\
 
@@ -70,3 +83,5 @@ DC Level & Ripple \\
 \captionof{table}[]{DC level and ripple of $V_o$.}
 \label{tab:teortab}
 \end{center}
+
+\end{comment}
