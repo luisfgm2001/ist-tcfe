@@ -74,7 +74,7 @@ ZO1 = 1/(1/ro1+1/RC)
 
 file = fopen("gaintab.tex", "w");
 
-fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV1, AVI_DB, ZI1, ZO1);
+fprintf(file, "Gain & %0.6E \\\\ \\hline\nGain (dB) & %0.6E dB \\\\ \\hline\nInput impedance & %0.6E $\\Omega$ \\\\ \\hline\nOutput impedance & %0.6E $\\Omega$ \\\\ \\hline", AV1, AVI_DB, ZI1, ZO1);
 
 fclose(file);
 
@@ -95,7 +95,7 @@ ZO2 = 1/(gm2+gpi2+go2+ge2)
 
 file = fopen("outputtab.tex", "w");
 
-fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV2, 20*log10(AV2), ZI2, ZO2);
+fprintf(file, "Gain & %0.6E \\\\ \\hline\nGain (dB) & %0.6E dB \\\\ \\hline\nInput impedance & %0.6E $\\Omega$ \\\\ \\hline\nOutput impedance & %0.6E $\\Omega$ \\\\ \\hline", AV2, 20*log10(AV2), ZI2, ZO2);
 
 fclose(file);
 
@@ -108,7 +108,7 @@ ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
 
 file = fopen("totaltab.tex", "w");
 
-fprintf(file, "Gain & %0.6E V \\\\ \\hline\nGain (dB) & %0.6E V \\\\ \\hline\nInput impedance & %0.6E V \\\\ \\hline\nOutput impedance & %0.6E V \\\\ \\hline", AV, 20*log10(AV), ZI, ZO);
+fprintf(file, "Gain & %0.6E \\\\ \\hline\nGain (dB) & %0.6E dB \\\\ \\hline\nInput impedance & %0.6E $\\Omega$ \\\\ \\hline\nOutput impedance & %0.6E $\\Omega$ \\\\ \\hline", AV, 20*log10(AV), ZI, ZO);
 
 fclose(file);
 
