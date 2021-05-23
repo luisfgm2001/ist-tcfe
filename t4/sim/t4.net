@@ -54,6 +54,15 @@ RL out 0 8
 
 .control
 
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=pink
+set color3=blue
+set color4=violet
+set color5=rgb:255/153/204
+set color6=rgb:255/153/204
+
 *OP analysis
 op
 

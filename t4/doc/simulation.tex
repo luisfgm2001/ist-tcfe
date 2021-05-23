@@ -1,7 +1,10 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
-In this section, the results were obtained running an Ngspice script in which we made use of the transistor models provided by the professor.
-Firstly, we verified that the transistors were operating in the forward active region (F.A.R.) by simulating the operation point. The results are shown in Table~\ref{tab:opngspice}.
+
+In addition to theoretical analysis, we computed a simulation of the audio amplifier using Ngspice, in which we employed the transistor models provided by the professor. Thus, we started by performing an operating point simulation to verify that the transistors were operating in the forward active region (F.A.R.). The results are shown in Table~\ref{tab:opngspice}, side by side with the ones obtained theoretically.
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{table}[H]
  \centering
@@ -10,11 +13,14 @@ Firstly, we verified that the transistors were operating in the forward active r
  {\bf Name} & {\bf Value [V]} \\ \hline
 \input{../sim/op_tab}
  \end{tabular}
- \caption{Verification of the F.A.R. (Ngspice)}
+ \caption{Verification of the F.A.R. using Ngspice}
  \label{tab:opngspice}
  \end{table}
  
- MINIPAGE AQUI OLHA
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\vspace{-0.5mm}
  
  \begin{table}[H]
  \centering
@@ -27,31 +33,50 @@ Firstly, we verified that the transistors were operating in the forward active r
  \label{tab:opngspice}
  \end{table}
  
-  Now we can check that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$ by considering the respective values. This allows us to conclude that the transistors are operating in the F.A.R.
+\end{minipage}
 
+\vspace{3mm}
 
-Below is presented the graph for the results obtained. In Figure~\ref{fig:sim1} it is shown the gain of the total circuit as a
-function of the frequency in logarithmic scale.
+Analysing the obtained values, one notices that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which allows us to conclude that the transistors are operating in the F.A.R.. \\
+
+Furthermore, the gain for the total circuit as a function of the frequency in logarithmic scale is illustrated in Figure~\ref{fig:sim}. Next to it, is the same graph, obtained previously by theoretical analysis.
+
+\vspace{-25mm}
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.5\linewidth]{../sim/vo2f.ps}
-\caption{Gain in function of frequency response (Ngspice)}
-\label{fig:sim1}
+\includegraphics[width=1\linewidth]{../sim/vo2f.pdf}
+\caption{Gain in function of frequency response (Ngspice).}
+\label{fig:sim}
 \end{figure}
 
-MINIPAGE AQUI COOO SIGA
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\vspace{16mm}
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.5\linewidth]{gainfreq.eps}
-\caption{Gain in function of frequency response (Octave)}
-\label{fig:sim1}
+\includegraphics[width=1\linewidth]{gainfreq.eps}
+\caption{Gain in function of frequency response (Octave).}
+\label{fig:octave}
 \end{figure}
 
- In order to get a lower cutoff frequency, we ran several simulations changing the capacity of the input coupling capacitor. With these simulations, we were able to reach a balance between the cost and a frequency that wouldn't be much high.
-  Considering the bypass capacitor, we can consider that the purpose of the use of $C_E$ is to bypass the resistor $R_E$, which reduces the gain, although it stabilises the temperature effect. Hence, the effect the bypass capacitor produces is the stabilisation of the gain in the desired passband, as it works both as an open circuit for low frequencies (DC) and as a short circuit for higher frequency (AC).
-  In what concerns $R_C$, the higher its resistance value, the higher the gain obtained in the gain stage. It was also necessary to run simulations with different values for $R_C$ to find an efficient balance between its cost and the gain.
+\end{minipage}
 
-The Table~\ref{tab:spice} presents the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances in Table~\ref{tab:imped}.
+\vspace{10mm}
+
+In an attempt to get a lower cutoff frequency, we ran several simulations, changing the capacity of the input coupling capacitor, $C_{in}$. With these simulations, we were able to reach a balance between the cost and a frequency that wouldn't be much high.\\
+
+Regarding the bypass capacitor, we can consider that the purpose of $C_b$ is to bypass the resistor $R_e$, which reduces the gain, although it stabilises the temperature effect. Hence, the bypass capacitor produces the gain stabilisation in the desired passband, as it works both as an open circuit for low frequencies (DC) and as a short circuit for higher frequencies (AC).\\
+
+In what concerns $R_C$, the higher its resistance value, the higher the gain obtained in the gain stage. Similarly to what we did with $C_{in}$, it was also necessary to run simulations with different values for $R_C$, in order to find an efficient balance between its cost and the gain. \\
+
+The values obtained for the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances are listed in Table~\ref{tab:spice}, once again, side by side to the ones obtained theoretically.
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{table}[H]
  \centering
@@ -61,11 +86,12 @@ The Table~\ref{tab:spice} presents the output voltage gain in the passband, the 
 \input{../sim/data_tab}
 \input{../sim/Zout_tab}
  \end{tabular}
- \caption{Voltage gain, lower and upper cut off frequencies, bandwidth and impedances (Ngspice)}
+ \caption{Voltage gain, lower and upper cut off frequencies, bandwidth and impedances (Ngspice).}
  \label{tab:spice}
  \end{table}
  
- MINIPAGE AQUIIIII UPA UPA É SEMPRE A SEGUIR
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
  
  \begin{table}[H]
  \centering
@@ -75,8 +101,10 @@ The Table~\ref{tab:spice} presents the output voltage gain in the passband, the 
 \input{../sim/data_tab}
 \input{../sim/Zout_tab}
  \end{tabular}
- \caption{Voltage gain and impedances (Octave)}
+ \caption{Voltage gain and impedances (Octave).}
  \label{tab:spice}
  \end{table}
+ 
+\end{minipage}
 
 
