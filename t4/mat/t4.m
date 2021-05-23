@@ -41,7 +41,7 @@ Vemit2 = VCC-X(4)*Rout;
 
 file = fopen("opteor.tex", "w");
 
-fprintf(file, "$base$ & %0.6E V \\\\ \\hline\n$coll$ & %0.6E V \\\\ \\hline\n$emit$ & %0.6E V \\\\ \\hline\n$emit2$ & %0.6E V \\\\ \\hline\n$in$ & 0 V \\\\ \\hline\n$in2$ & 0 V \\\\ \\hline\n$out$ & 0 V \\\\ \\hline\n$Vbe1$ & %0.6E V \\\\ \\hline\n$vcc$ & %0.6E V \\\\ \\hline\n$i(V_{CC})$ & %0.6E A \\\\ \\hline\n$Vce1$ & %0.6E V \\\\ \\hline\n$Veb2$ & %0.6E V \\\\ \\hline\n$Vec2$ & %0.6E V \\\\ \\hline\n$i(V_{in})$ & 0 A \\\\ \\hline\n", Vbase, Vcoll, Vemit, Vemit2, Vbase-Vemit, VCC, -X(1), Vcoll-Vemit, Vemit2-Vcoll, Vemit2);
+fprintf(file, "$base$ & %0.6E V \\\\ \\hline\n$coll$ & %0.6E V \\\\ \\hline\n$emit$ & %0.6E V \\\\ \\hline\n$emit2$ & %0.6E V \\\\ \\hline\n$in$ & 0 V \\\\ \\hline\n$in2$ & 0 V \\\\ \\hline\n$out$ & 0 V \\\\ \\hline\n$Vbe1$ & %0.6E V \\\\ \\hline\n$vcc$ & %0.6E V \\\\ \\hline\n$Vce1$ & %0.6E V \\\\ \\hline\n$Veb2$ & %0.6E V \\\\ \\hline\n$Vec2$ & %0.6E V \\\\ \\hline\n", Vbase, Vcoll, Vemit, Vemit2, Vbase-Vemit, VCC, Vcoll-Vemit, Vemit2-Vcoll, Vemit2);
 
 fclose(file);
 
@@ -72,6 +72,12 @@ AVI_DB = 20*log10(abs(AV1))
 ZI1 = 1/(1/RB+1/(((ro1+RC+RE)*(rpi1+RE)+gm1*RE*ro1*rpi1 - RE^2)/(ro1+RC+RE)))
 ZO1 = 1/(1/ro1+1/RC)
 
+file = fopen("gaintab.tex", "w");
+
+fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV1, AVI_DB, ZI1, ZO1);
+
+fclose(file);
+
 %ouput stage
 VI2 = VO1
 IE2 = (VCC-VEBON-VI2)/Rout
@@ -87,6 +93,11 @@ AV2 = gm2/(gm2+gpi2+go2+ge2)
 ZI2 = (gm2+gpi2+go2+ge2)/gpi2/(gpi2+go2+ge2)
 ZO2 = 1/(gm2+gpi2+go2+ge2)
 
+file = fopen("outputtab.tex", "w");
+
+fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV2, 20*log10(AV2), ZI2, ZO2);
+
+fclose(file);
 
 %total
 gB = 1/(1/gpi2+ZO1)
@@ -95,7 +106,11 @@ AV_DB = 20*log10(abs(AV))
 ZI=ZI1
 ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
 
+file = fopen("totaltab.tex", "w");
 
+fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV, 20*log10(AV), ZI, ZO);
+
+fclose(file);
 
 
 

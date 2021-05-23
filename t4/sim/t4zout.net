@@ -56,11 +56,10 @@ print all
 
 ac dec 10 10 100MEG
 
-let Zout_re= Re(-v(out)[40]/i(VL)[40])
-let Zout_im= Im(-v(out)[40]/i(VL)[40])
+let Zout= abs(-v(out)[40]/i(VL)[40])
 
 echo "Zout_TAB"
-echo "Zout = $&Zout_re + $&Zout_im j"
+echo "Zout = $&Zout"
 echo "Zout_END"
 
 

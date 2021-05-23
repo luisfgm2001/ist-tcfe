@@ -63,23 +63,33 @@ let vbe1=v(base)-v(emit)
 let vec2=v(emit2)
 let veb2=v(emit2)-v(coll)
 
+
+echo "op_TAB"
 print all
+echo "op_END"
 
 * time analysis
 tran 1e-5 1e-2
 
 hardcopy vo1.ps vdb(coll)
+echo vo1_FIG
 
 hardcopy vout.ps v(out)
+echo vout_FIG
 
 * frequency analysis
 ac dec 10 10 100MEG
 
 hardcopy vo1f.ps vdb(coll)
+echo vo1f_FIG
 
 hardcopy vo2f.ps vdb(out)
+echo vo2f_FIG
 
-let gain = v(out)[40]/v(in)[40]
+let g = v(out)[40]/v(in)[40]
+let gain = abs(g)
+let gainDB = 20*log10(abs(gain))
+
 
 *Determining lowcutoff and highcutoff frequencies 
 let max_min_3 = vecmax(vdb(out))-3
@@ -87,18 +97,19 @@ let max_min_3 = vecmax(vdb(out))-3
 meas ac lowf WHEN vdb(out) = max_min_3 RISE = 1
 meas ac uppf WHEN vdb(out) = max_min_3 CROSS = LAST
 
-let bandwith = uppf-lowf
+let bandwidth = uppf-lowf
 
 *input impedance in ohm
 let Z_in1 = v(in2)[40]/vin#branch[40]/(-1)
 
 *Cost and Merit
 let cost = (Rin_val + R1_val + R2_val + Re_val + Rc_val + Rout_val)/1000 + (Ci_val + Cb_val + Co_val)*10^6 + 0.1*2
-let merit = abs(gain)*bandwith/(cost*lowf)
+let merit = gain*bandwidth/(cost*lowf)
 
+let Zin = abs(Z_in1)
 
 echo  "data_TAB"
-print abs(gain) lowf uppf bandwith abs(Z_in1) cost merit
+print Gain GainDB lowf uppf bandwidth Zin
 echo  "data_END"
 
 
