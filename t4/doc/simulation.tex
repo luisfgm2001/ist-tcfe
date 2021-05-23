@@ -13,31 +13,31 @@ In addition to theoretical analysis, we computed a simulation of the audio ampli
  {\bf Name} & {\bf Value [V]} \\ \hline
 \input{../sim/op_tab}
  \end{tabular}
- \caption{Verification of the F.A.R. using Ngspice}
+ \caption{Verification of the F.A.R. (Ngspice).}
  \label{tab:opngspice}
  \end{table}
  
 \end{minipage}
 \begin{minipage}[c]{0.5\linewidth}
 
-\vspace{-0.5mm}
+\vspace{-1mm}
  
  \begin{table}[H]
  \centering
  \begin{tabular}{|l|r|}
  \hline
- {\bf Name} & {\bf Value [V]} \\ \hline
+ {\bf Name} & {\bf Value} \\ \hline
 \input{../mat/opteor}
  \end{tabular}
- \caption{Theoretical verification of the F.A.R.}
- \label{tab:opngspice}
+ \caption{Verification of the F.A.R. (Octave)}
+ \label{tab:opoctave}
  \end{table}
  
 \end{minipage}
 
 \vspace{3mm}
 
-By analysing the obtained values, one notices that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which allows us to conclude that the transistors are operating in the F.A.R.. Moreover, one can see clearly that both the Octave and Ngspice analysis are pretty similar, being the difference always smaller than 0.1.\\
+By analysing the obtained values, one notices that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which allows us to conclude that the transistors are operating in the F.A.R.. Moreover, one can see clearly that both the Octave and Ngspice analysis are pretty similar, being the difference always smaller than 0.2.\\
 
 Furthermore, the gain for the total circuit as a function of the frequency in logarithmic scale is illustrated in Figure~\ref{fig:sim}. Next to it, is the same plot, obtained previously by theoretical analysis.
 
