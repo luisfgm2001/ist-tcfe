@@ -1,40 +1,7 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
-In addition to theoretical analysis, we computed a simulation of the audio amplifier using Ngspice, and measured the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, and the input and output impedances. The respective results are shown in Tables \ref{tab:spice} and \ref{tab:imped}
-
-%inserir grafico
-\begin{figure}[H] \centering
-\includegraphics[width=0.5\linewidth]{vo2f.eps}
-\caption{Gain in function of frequency response}
-\label{fig:sim1}
-\end{figure}
-
-In addition, Figure~\ref{fig:sim1} illustrates the gain as a function of the frequency in log10 scale.
-
-\begin{table}[H]
- \centering
- \begin{tabular}{|l|r|}
- \hline
- {\bf Name} & {\bf Value} \\ \hline
-\input{../sim/spice_results_tab}
- \end{tabular}
- \caption{Voltage gain, bandwidth and lower cutoff frequency.}
- \label{tab:spice}
- \end{table}
- 
- \begin{table}[H]
- \centering
- \begin{tabular}{|l|r|}
- \hline
- {\bf Name} & {\bf Value} \\ \hline
-\input{../sim/op_2_tab}
-\input{../sim/op_in_tab}
- \end{tabular}
- \caption{Input and output impedances of the circuit.}
- \label{tab:imped}
- \end{table}
- 
- In the Table.......... we can check that $V_{CE}>V_{BE} and $V_{EC}>V_{EB}$ by presenting the respective values. This allows us to conclude that the transistors operate in the forward active region (F.A.R.).
+In this section, the results were obtained running an Ngspice script in which we made use of the transistor models provided by the professor.
+Firstly, we verified that the transistors were operating in the forward active region (F.A.R.) by simulating the operation point. The results are shown in Table~\ref{tab:opngspice}.
 
 \begin{table}[H]
  \centering
@@ -43,18 +10,73 @@ In addition, Figure~\ref{fig:sim1} illustrates the gain as a function of the fre
  {\bf Name} & {\bf Value [V]} \\ \hline
 \input{../sim/op_tab}
  \end{tabular}
- \caption{Verification of the FAR.}
- \label{tab:forwardbias}
+ \caption{Verification of the F.A.R. (Ngspice)}
+ \label{tab:opngspice}
  \end{table}
+ 
+ MINIPAGE AQUI OLHA
+ 
+ \begin{table}[H]
+ \centering
+ \begin{tabular}{|l|r|}
+ \hline
+ {\bf Name} & {\bf Value [V]} \\ \hline
+\input{../mat/opteor}
+ \end{tabular}
+ \caption{Theoretical verification of the F.A.R.}
+ \label{tab:opngspice}
+ \end{table}
+ 
+  Now we can check that $V_{CE1}>V_{BE1} and $V_{EC2}>V_{EB2}$ by considering the respective values. This allows us to conclude that the transistors are operating in the F.A.R.
+
+
+Below is presented the graph for the results obtained. In Figure~\ref{fig:sim1} it is shown the gain of the total circuit as a
+function of the frequency in logarithmic scale.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.5\linewidth]{../sim/vo2f.ps}
+\caption{Gain in function of frequency response (Ngspice)}
+\label{fig:sim1}
+\end{figure}
+
+MINIPAGE AQUI COOO SIGA
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.5\linewidth]{gainfreq.eps}
+\caption{Gain in function of frequency response (Octave)}
+\label{fig:sim1}
+\end{figure}
+
+ In order to get a lower cutoff frequency, we ran several simulations changing the capacity of the input coupling capacitor. With these simulations, we were able to reach a balance between the cost and a frequency that wouldn't be much high.
+  Considering the bypass capacitor, we can consider that the purpose of the use of $C_E$ is to bypass the resistor $R_E$, which reduces the gain, although it stabilises the temperature effect. Hence, the effect the bypass capacitor produces is the stabilisation of the gain in the desired passband, as it works both as an open circuit for low frequencies (DC) and as a short circuit for higher frequency (AC).
+  In what concerns $R_C$, the higher its resistance value, the higher the gain obtained in the gain stage. It was also necessary to run simulations with different values for $R_C$ to find an efficient balance between its cost and the gain.
+
+The Table~\ref{tab:spice} presents the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances in Table~\ref{tab:imped}.
 
 \begin{table}[H]
  \centering
  \begin{tabular}{|l|r|}
  \hline
  {\bf Name} & {\bf Value} \\ \hline
-\input{../sim/merito_tab}
+\input{../sim/data_tab}
+\input{../sim/Zout_tab}
  \end{tabular}
- \caption{Cost, quality and merit of the circuit.}
- \label{tab:merit_spice}
-\end{table}
+ \caption{Voltage gain, lower and upper cut off frequencies, bandwidth and impedances (Ngspice)}
+ \label{tab:spice}
+ \end{table}
+ 
+ MINIPAGE AQUIIIII UPA UPA É SEMPRE A SEGUIR
+ 
+ \begin{table}[H]
+ \centering
+ \begin{tabular}{|l|r|}
+ \hline
+ {\bf Name} & {\bf Value} \\ \hline
+\input{../sim/data_tab}
+\input{../sim/Zout_tab}
+ \end{tabular}
+ \caption{Voltage gain and impedances (Octave)}
+ \label{tab:spice}
+ \end{table}
+
 
