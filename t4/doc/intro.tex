@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The objective of this laboratory assignment is to design an Audio Amplifier, which converts a signal of alternating current of $230V$ and frequency of $50 Hz$ to direct current of $12V$. In order to achieve this goal, we made use of a transformer to lower the voltage to $0.70609$ of the input voltage. In addition, we had at our disposal resistors, capacitors, and NPN and PNP transistors, whose costs are presented in Table~\ref{tab:costs}.
+The objective of this laboratory assignment is to design an Audio Amplifier, which increases the input voltage, making it as efficient as possible in what concerns both the cost and functioning. For that purpose, we had at our disposal resistors, capacitors, and NPN and PNP transistors, whose costs are presented in Table~\ref{tab:costs}.
 
 \begin{center}
 \begin{tabular}{ | c | c | }\label{tab:costs}
@@ -30,5 +30,5 @@ With this in mind, we built the circuit illustrated in Figure~\ref{fig:amplifier
 \label{fig:amplifier}
 \end{figure}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the audio amplifier, where we develop a model able to predict the output of the envelope detector and voltage regulator circuits and compute the output DC level and the voltage ripple. In Section~\ref{sec:simulation}, we write a Ngspice script to simulate the AC/DC converter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the audio amplifier, where we develop a model able to predict the gain, input and output impedances separately for both the gain and the output stages. Here, we also get the theoretical frequency response using the incremental circuit. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the Audio Amplifier and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
 
