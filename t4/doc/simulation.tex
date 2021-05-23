@@ -75,7 +75,7 @@ Regarding the bypass capacitor, we can consider that the purpose of $C_b$ is to 
 
 In what concerns $R_C$, the higher its resistance value, the higher the gain obtained in the gain stage. Similarly to what we did with $C_{in}$, it was also necessary to run simulations with different values for $R_C$, in order to find an efficient balance between its cost and the gain. \\
 
-The values obtained for the output voltage gain in the passband, the lower and upper 3dB cut off frequencies, the bandwidth and the input and output impedances are listed in Table~\ref{tab:spice}, side by side to the ones obtained with Octave.
+The values obtained for the output voltage gain in the passband, the lower and upper $3dB$ cut off frequencies, the bandwidth and the input and output impedances are listed in Table~\ref{tab:spice}, side by side to the ones obtained with Octave.
 
 \vspace{5mm}
 
@@ -90,7 +90,7 @@ The values obtained for the output voltage gain in the passband, the lower and u
 \input{../sim/data_tab}
 \input{../sim/Zout_tab}
  \end{tabular}
- \caption{Voltage gain, lower and upper cut off frequencies, bandwidth and impedances (Ngspice).}
+ \caption{Voltage gain, lower and upper cut off frequencies, bandwidth and impedances (Ngspice). Frequencies are in Hz and impedances are in $\Omega$.}
  \label{tab:spice}
  \end{table}
  
@@ -104,11 +104,10 @@ The values obtained for the output voltage gain in the passband, the lower and u
  \begin{tabular}{|l|r|}
  \hline
  {\bf Name} & {\bf Value} \\ \hline
-\input{../sim/data_tab}
-\input{../sim/Zout_tab}
+\input{../mat/totaltab}
  \end{tabular}
- \caption{Voltage gain and impedances (Octave).}
- \label{tab:spice}
+ \caption{Voltage gain and impedances (Octave). Frequencies are in Hz and impedances are in $\Omega$.}
+ \label{tab:octave}
  \end{table}
  
 \end{minipage}
@@ -117,7 +116,7 @@ The values obtained for the output voltage gain in the passband, the lower and u
 
 Once again, it becomes evident that both analysis produced similar results, even though, in this case, the gain and the impedances differ by amounts that are not negligible. \\
 
-The aforementioned discrepancies can be explained by the fact that, in the theoretical analysis, we used a simple approximated model of the transistors, while the model used in Ngspice is far more complex and, consequently, closer to reality.
+The aforementioned discrepancies can be explained by the fact that, in the theoretical analysis, we used a simple approximated model of the transistors, while the model used in Ngspice is far more complex and, consequently, closer to reality.\\
 
 Finally, to calculate the merit $M$ of the amplifier, we used the values obtained by simulation. They should be more reliable, since in the theoretical analysis we considered several approximations that may have affected the results. The merit $M$, as well as the values required to its calculation, are illustrated in Table~\ref{tab:merit}.
 
