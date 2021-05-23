@@ -41,7 +41,7 @@ Vemit2 = VCC-X(4)*Rout;
 
 file = fopen("opteor.tex", "w");
 
-fprintf(file, "base & %0.6E V \\\\ \\hline\ncoll & %0.6E V \\\\ \\hline\nemit & %0.6E V \\\\ \\hline\nemit2 & %0.6E V \\\\ \\hline\nin & 0 V \\\\ \\hline\nin2 & 0 V \\\\ \\hline\nout & 0 V \\\\ \\hline\nVbe1 & %0.6E V \\\\ \\hline\nvcc & %0.6E V \\\\ \\hline\n$i(V_{CC})$ & %0.6E A \\\\ \\hline\nVce1 & %0.6E V \\\\ \\hline\nVeb2 & %0.6E V \\\\ \\hline\nVec2 & %0.6E V \\\\ \\hline\n$i(V_{in})$ & 0 A \\\\ \\hline\n", Vbase, Vcoll, Vemit, Vemit2, Vbase-Vemit, VCC, -X(1), Vcoll-Vemit, Vemit2-Vcoll, Vemit2);
+fprintf(file, "$base$ & %0.6E V \\\\ \\hline\n$coll$ & %0.6E V \\\\ \\hline\n$emit$ & %0.6E V \\\\ \\hline\n$emit2$ & %0.6E V \\\\ \\hline\n$in$ & 0 V \\\\ \\hline\n$in2$ & 0 V \\\\ \\hline\n$out$ & 0 V \\\\ \\hline\n$Vbe1$ & %0.6E V \\\\ \\hline\n$vcc$ & %0.6E V \\\\ \\hline\n$i(V_{CC})$ & %0.6E A \\\\ \\hline\n$Vce1$ & %0.6E V \\\\ \\hline\n$Veb2$ & %0.6E V \\\\ \\hline\n$Vec2$ & %0.6E V \\\\ \\hline\n$i(V_{in})$ & 0 A \\\\ \\hline\n", Vbase, Vcoll, Vemit, Vemit2, Vbase-Vemit, VCC, -X(1), Vcoll-Vemit, Vemit2-Vcoll, Vemit2);
 
 fclose(file);
 
