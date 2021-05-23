@@ -33,6 +33,18 @@ B=[VCC;0;-VBEON;-VEBON;0;0;0;-VBEON];
 
 X=A\B
 
+Vbase = (X(1)-X(3))*R2;
+Vcoll = VCC-(X(2)-X(4))*RC;
+Vemit = (X(3)-X(5))*RE;
+Vemit2 = VCC-X(4)*Rout;
+
+
+file = fopen("opteor.tex", "w");
+
+fprintf(file, "base & %0.6E V \\\\ \\hline\ncoll & %0.6E V \\\\ \\hline\nemit & %0.6E V \\\\ \\hline\nemit2 & %0.6E V \\\\ \\hline\nin & 0 V \\\\ \\hline\nin2 & 0 V \\\\ \\hline\nout & 0 V \\\\ \\hline\nvbe1 & %0.6E V \\\\ \\hline\nvcc & %0.6E V \\\\ \\hline\nvcc#branch & %0.6E A \\\\ \\hline\nvce1 & %0.6E V \\\\ \\hline\nveb2 & %0.6E V \\\\ \\hline\nvec2 & %0.6E V \\\\ \\hline\nvin#branch & 0 A \\\\ \\hline\n", Vbase, Vcoll, Vemit, Vemit2, Vbase-Vemit, VCC, -X(1), Vcoll-Vemit, Vemit2-Vcoll, Vemit2);
+
+fclose(file);
+
 
 %%%%% GAIN STAGE %%%%%%
 
