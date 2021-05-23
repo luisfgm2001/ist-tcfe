@@ -138,19 +138,20 @@ for t=1:0.1:8
 	Ro2out = 1/(1/ro2+1/Rout);
 	Zcout=1/(j*w*Cout);
 	
-	A=[Zin+RB,-RB,0,0,0,0;
-	-RB,RB+rpi1+Zeb,-Zeb,0,0,0;
-	0,gm1*rpi1,1,0,0,0;
-	0,-Zeb,-ro1,Rcpi2+Zeb+ro1,0,0;
-	0,0,0,gm2*Rcpi2,1,0;
-	0,0,0,0,-Ro2out,Zcout+RL+Ro2out];
+	A=[Zin+RB,-RB,0,0,0,0,0;
+	-RB,RB+rpi1+Zeb,0,-Zeb,0,0,0;
+	0,gm1*rpi1,1,0,0,0,0;
+	0,-Zeb,-ro1,RC+Zeb+ro1,0,0,0;
+	0,0,0,-RC,RC+rpi2,Ro2out,-Ro2out;
+	0,0,0,0,1+gm2*rpi2,-1,0;
+	0,0,0,0,0,-Ro2out,Zcout+RL+Ro2out];
 	
-	B=[vin;0;0;0;0;0];
+	B=[vin;0;0;0;0;0;0];
 	
 	X=A\B;
 	
 	freq(i)=t;
-	gain(i) = 20*log10(X(6)*RL/vin);
+	gain(i) = 20*log10(X(7)*RL/vin);
 	
 	i=i+1;
 
