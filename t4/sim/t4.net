@@ -118,9 +118,12 @@ let merit = gain*bandwidth/(cost*lowf)
 let Zin = abs(Z_in1)
 
 echo  "data_TAB"
-print Gain GainDB lowf uppf bandwidth Zin
+print gain gainDB lowf uppf bandwidth Zin
 echo  "data_END"
 
+echo "merit_TAB"
+print gain bandwidth lowf cost merit
+echo "merit_END"
 
 quit
 .endc

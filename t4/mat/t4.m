@@ -108,7 +108,7 @@ ZO=1/(go2+gm2/gpi2*gB+ge2+gB)
 
 file = fopen("totaltab.tex", "w");
 
-fprintf(file, "$Gain$ & %0.6E V \\\\ \\hline\n$Gain (dB)$ & %0.6E V \\\\ \\hline\n$Input impedance$ & %0.6E V \\\\ \\hline\n$Output impedance$ & %0.6E V \\\\ \\hline", AV, 20*log10(AV), ZI, ZO);
+fprintf(file, "Gain & %0.6E V \\\\ \\hline\nGain (dB) & %0.6E V \\\\ \\hline\nInput impedance & %0.6E V \\\\ \\hline\nOutput impedance & %0.6E V \\\\ \\hline", AV, 20*log10(AV), ZI, ZO);
 
 fclose(file);
 
