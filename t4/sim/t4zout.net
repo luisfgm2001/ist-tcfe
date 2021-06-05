@@ -63,7 +63,16 @@ echo "Zout = $&Zout"
 echo "Zout_END"
 
 
+<<<<<<< HEAD:t4/sim/t4zout.net
 quit
 .endc
+=======
+plot abs(v(in2)/vin#branch/(-1000))
+print v(in2)[40]/vin#branch[40]/(-1000)
+
+*need a different setup to measure output impedance
+
+.endc 
+>>>>>>> fea4b798e9c83a92c44cb074ddcac821039acd25:t4/t4.net
 
 .end
