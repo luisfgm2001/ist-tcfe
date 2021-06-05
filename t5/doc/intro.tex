@@ -1,0 +1,103 @@
+\section{Introduction}
+\label{sec:introduction}
+
+The objective of this laboratory assignment is to design a BandPass Filter, which increases the input voltage, making it as efficient as possible in what concerns both the cost and functioning. \\
+
+In order to achieve this goal, we made use of a OP-AMP. In addition, we had at our disposal resistors, capacitors and transistors, whose costs are presented in Table~\ref{tab:costs}.
+
+\begin{center}
+\begin{tabular}{ | c | c | }
+\hline
+\textbf{Component} & \textbf{Cost} \\
+\hline
+Resistors & 1 MU/k$\Omega$ \\  
+Capacitors & 1 MU/$\mu$F \\
+Transistors & 0.1 MU/transistor \\
+\hline   
+\end{tabular}
+\captionof{table}[]{Cost of the components of the circuit.}
+\label{tab:costs}
+\end{center}
+
+The following quantity, merit $M$, is defined with the purpose of evaluating the quality of the BandPass Filter:
+
+\vspace{-2mm}
+
+\begin{equation}
+  M = \frac{1}{cost \times gain deviation \times central frequency deviation}
+\end{equation}
+
+\vspace{2mm}
+
+Thus, the higher the value of the function, the better its quality.\\
+
+With this in mind, we built the circuit illustrated in Figure~\ref{fig:bandpass}, with the components shown in Table~\ref{tab:components}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=1\linewidth]{amplifier.pdf}
+\caption{Audio Amplifier.}
+\label{fig:bandpass
+\end{figure}
+
+\begin{center} 
+\begin{tabular}{ | c | c | }
+\hline
+\textbf{Component} & \textbf{Value} \\
+\hline
+$V_{in}$ & $0.01\sin{(2000\pi t)}$ V \\
+\hline
+$V_{cc}$ & 12 V \\
+\hline
+$R_{in}$ & 0.1 k$\Omega$ \\
+\hline
+$R_1$ & 90 k$\Omega$ \\
+\hline
+$R_2$ & 20 k$\Omega$ \\
+\hline
+$R_c$ & 0.86 k$\Omega$ \\
+\hline
+$R_e$ & 0.2 k$\Omega$ \\
+\hline
+$R_{out}$ & 52 $\Omega$ \\
+\hline
+$R_L$ & 8 $\Omega$ \\
+\hline
+$C_{in}$ & 102 $\mu$ \\
+\hline
+$C_b$ & 2185 $\mu$ \\
+\hline
+$C_{out}$ & 1466 $\mu$ \\
+\hline
+\end{tabular}
+\captionof{table}[]{Values of the components of the circuit.}
+\label{tab:components}
+\end{center}
+
+In Table~\ref{tab:transistors} are also listed some important parameters of the BJT transistors used, which will be considered in the theoretical analysis.
+
+\begin{center}
+\begin{tabular}{ | c | c | }
+\hline
+\textbf{Transistor} & \textbf{Value}\\
+\hline
+$V_T$ & 0.025 V \\
+\hline
+$\beta_{FN}$ & 178.7 \\
+\hline
+$\beta_{FP}$ & 227.3 \\
+\hline
+$V_{A_{FN}}$ & 69.7 V \\
+\hline
+$V_{A_{FP}}$ & 37.2 V \\
+\hline
+$V_{{BE}_{ON}}$ & 0.7 V \\
+\hline
+$V_{{EB}_{ON}}$ & 0.7 V \\
+\hline
+\end{tabular}
+\captionof{table}[]{BJT transistors' parameters.}
+\label{tab:transistors}
+\end{center}
+
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the BandPass Filter, where we develop a model able to predict the gain, input and output impedances, separately for both the gain and the output stages, and explain how they can be connected in order to determine these quantities for the complete circuit. Moreover, we get the theoretical frequency response using the incremental circuit. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the BandPass Filter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed amplifier.
+
