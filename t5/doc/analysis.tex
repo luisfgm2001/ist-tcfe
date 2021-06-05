@@ -1,0 +1,131 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:amplifier}, we started by performing an operating point analysis with the purpose of checking if the NPN and PNP transistors were operating in the forward active region (F.A.R.). \\
+
+Thus, we first considered that the voltage sources had been on long enough, so that the capacitors were fully charged and, therefore, no current flowed through them, working as an open circuit. With that in mind, we arbitrarily assigned mesh currents in the essential meshes, $I_a$, $I_b$, $I_c$, $I_d$ and $I_e$, looping in a clockwise direction, as shown in Figure~\ref{fig:mesh}.
+
+\vspace{-4mm}
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.8\linewidth]{oluisefeio.pdf}
+\caption{Mesh Analysis.}
+\label{fig:mesh}
+\end{figure}
+
+Hence, we wrote five equations by applying KVL to the five essential meshes and three additional ones related with the transistors, resulting in the following system of equations:
+
+\[
+{\begin{bmatrix}
+R_1+R_2 & -R_1 & -R_2 & 0 & 0 & 0 & 0 & 0\\
+-R_1 & R_1+R_C & 0 & -R_C & 0 & 1 & 0 & 0\\
+-R_2 & 0 & R_E+R_2 & 0 & -R_E & 0 & 0 & 0\\
+0 & -R_C & 0 & R_C+R_{out} & 0 & 0 & 0 & 0\\
+0 & 0 & -R_E & 0 & R_E & 0 & 1 & 1\\
+0 & 0 & 0 & -\beta_{FP} & 1+\beta_{FP} & 0 & 0 & 0\\
+0 & 1+\beta_{FN} & -\beta_{FN} & 0 & -1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 1 & 1 & 0\\
+            \end{bmatrix}
+            }
+{\begin{bmatrix}
+I_a\\
+I_b\\
+I_c\\
+I_d\\
+I_e\\
+V_{CB1}\\
+V_{EC1}\\
+V_{BC2}\\
+            \end{bmatrix}
+            }
+    =
+{\begin{bmatrix}
+V_{cc}\\
+0\\
+-V_{{BE}_{ON}}\\
+-V_{{EB}_{ON}}\\
+0\\
+0\\
+0\\
+-V_{{BE}_{ON}}\\
+            \end{bmatrix}
+            }
+\]
+
+The corresponding results are presented in Table~\ref{tab:op}. \\
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/opteor}
+  \end{tabular}
+  \caption{Circuit's characteristics in the operating point.}
+  \label{tab:op}
+\end{table}
+
+By analysing the obtained values, one can verify that $V_{CE1}>V_{BE1}$ and $V_{EC2}>V_{EB2}$, which indicates that both transistors are working in the F.A.R., as they should be. \\
+
+Furthermore, we managed to determine the gain and the input and output impedances, separately for the gain and the output stages of the audio amplifier, which are presented in Tables~\ref{tab:gaindata} and \ref{tab:outputdata}.
+
+\vspace{3mm}
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/gaintab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances in the gain stage.}
+  \label{tab:gaindata}
+\end{table}
+
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/outputtab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances in the output stage.}
+  \label{tab:outputdata}
+\end{table}
+
+\end{minipage}
+
+\vspace{8mm}
+
+By observation of Table~\ref{tab:gaindata}, one notices that the output impedance of the gain stage is very high, comparing to the resistance of the load, which is $8\Omega$. It becomes, then, evident the need to include an output stage in the circuit, to lower the output impedance of the amplifier.\\
+
+Moreover, given the results of the output stage, one can easily verify that there isn't significant loss of signal if both stages are connected, since the input impedance of this stage is a lot bigger than the output impedance of the gain stage and the gain is approximately unitary. It is also to be noted that the output impedance of the output stage is a lot smaller than $8\Omega$, showing that this stage is doing its job efficiently, allowing us to connect it to the load. \\
+
+Besides this, we computed the aforementioned quantities for the complete circuit. The results are shown in Table~\ref{tab:totaltab}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/totaltab}
+  \end{tabular}
+  \caption{Gain, input and ouput impedances of the total circuit.}
+  \label{tab:totaltab}
+\end{table}
+
+Given these results, one can see that the gain of the complete circuit is a bit smaller than the one obtained in the gain stage, due to some signal loss between the stages. On the other hand, the output impedance is a bit bigger than the one obtained by analysing the output stage separately, although it remais considerably small. Therefore, the total circuit is also suitable to connect to the $8\Omega$ load.\\
+
+Finally, we analysed the incremental model of the total circuit, with the aim of determining the frequency response of the output voltage. The plot in Figure~\ref{fig:freqresp} corresponds to the gain in terms of the frequency of the voltage source.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.6\linewidth]{gainfreq.eps}
+\caption{Load output voltage gain (Frequency response).}
+\label{fig:freqresp}
+\end{figure}
