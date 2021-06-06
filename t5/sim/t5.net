@@ -127,7 +127,7 @@ let gaindev = abs(lingain-100)
 *merit
 
 let cost = 13323.2904+113+0.110*3
-let merit = 1/(cost*(freqdev*gaindev+1e-6))
+let merit = 1/(cost*(freqdev+gaindev+1e-6))
 
 *Input impendance
 let Zin = abs(-v(in)[20]/i(Vin)[20])

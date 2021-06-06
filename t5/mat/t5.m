@@ -60,7 +60,7 @@ gain2 = abs((R1*C1*2000*pi*j)/(1+R1*C1*2000*pi*j)*(1+R3/R4)*(1/(1+R2*C2*2000*pi*
 Cost = (R1+R2+R3+R4)/1000 + (C1+C2)*1000000 + 13323.29204
 gain_deviation = abs(100-gain2)
 frequency_deviation = abs(fc-1000)
-Merit = 1/(Cost*(gain_deviation*frequency_deviation+1e-6))
+Merit = 1/(Cost*(gain_deviation+frequency_deviation+1e-6))
 
 
 file = fopen("octavetab.tex", "w");
