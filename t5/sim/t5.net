@@ -115,8 +115,6 @@ let freq = sqrt(lcf*hcf)
 
 let freqdev = abs(freq - 1000)
 
-let bandwidth=hcf-lcf
-
 
 meas ac gaindb FIND vdb(out) AT=1000
 let lingain = 10^(gaindb/20)
@@ -132,22 +130,22 @@ let merit = 1/(cost*(freqdev*gaindev+1e-6))
 let Zin = abs(-v(in)[20]/i(Vin)[20])
 
 
-echo "gain_TAB"
+echo "results_TAB"
+echo "Low cut off frequency (Hz) = $&lcf"
+echo "High cut off frequency (Hz) = $&hcf"
+echo "Central Frequency (Hz) = $&freq "
 echo "Gain = $&gainmax "
-echo "Gain dB = $&gainmaxdb "
-echo "Central Frequency = $&freq "
-echo "Linear Gain Deviation = $&gaindev "
+echo "Gain (dB) = $&gainmaxdb "
 echo "Frequency Deviation = $&freqdev "
-echo "Bandwidth = $&bandwidth "
-echo "gain_END"
+echo "Gain Deviation = $&gaindev "
+echo "Input Impedance = $&Zin "
+
+echo "results_END"
 
 echo "merito_TAB"
 echo "Cost = $&cost "
 echo "Merit = $&merit "
 echo "merito_END"
 
-echo "zin_TAB"
-echo "Input Impedance = $&Zin "
-echo "zin_END"
 
 .endc 

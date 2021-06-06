@@ -61,3 +61,10 @@ Cost = (R1+R2+R3+R4)/1000 + (C1+C2)*1000000 + 13323.29204
 gain_deviation = abs(100-gain2)
 frequency_deviation = abs(fc-1000)
 Merit = 1/(Cost*(gain_deviation*frequency_deviation+1e-6))
+
+
+file = fopen("octavetab.tex", "w");
+
+fprintf(file, "Low cut off frequency (Hz) & %0.6E \\\\ \\hline\nHigh cut off frequency (Hz) & %0.6E \\\\ \\hline\nCentral Frequency (Hz) & %0.6E \\\\ \\hline\nGain & %0.6E \\\\ \\hline\nGain (dB) & %0.6E \\\\ \\hline\nFrequency deviation (Hz) & %0.6E \\\\ \\hline\nGain deviation & %0.6E \\\\ \\hline\nInput impedance ($\\Omega$) & %0.6E \\\\ \\hline\nOutput impedance ($\\Omega$) & %0.6E \\\\ \\hline", lcf, hcf, fc, gain2, 20*log10(gain2), frequency_deviation, gain_deviation, Z_in, Z_out);
+
+fclose(file);
