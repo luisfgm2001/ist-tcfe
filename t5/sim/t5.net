@@ -93,11 +93,14 @@ hardcopy vout.ps v(out)
 * frequency analysis
 ac dec 10 10 100MEG
 
+
 hardcopy vdbf.ps vdb(out)
+echo vdbf_FIG
 
 let phasef(out) = 180/PI*ph(v(out))
 
 hardcopy phasef.ps phasef(out)
+echo phasef_FIG
 
 
 *Gain, frequency
