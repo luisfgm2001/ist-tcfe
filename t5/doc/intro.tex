@@ -3,7 +3,7 @@
 
 The objective of this laboratory assignment is to design a BandPass Filter, which increases the input voltage, making it as efficient as possible in what concerns both the cost and functioning. \\
 
-In order to achieve this goal, we made use of an Operational Amplifier (model uA741 OP-AMP). In addition, we had at our disposal three $1k\Omega$, three $10k\Omega$ and three $100k\Omega$ resistors, as well as three $220 nF$ and three $1 \mu F$ capacitors. In the OP-AMP integrated circuit, we also used transistors and diodes. The costs of all of the mentioned components are presented in Table~\ref{tab:costs}.
+In order to achieve this goal, we made use of an Operational Amplifier (model uA741 OP-AMP). In addition, we had at our disposal three $1k\Omega$, three $10k\Omega$ and three $100k\Omega$ resistors, as well as three $220 nF$ and three $1 \mu F$ capacitors. In the OP-AMP internal circuit, we also used transistors and diodes. The costs of all of the mentioned components are presented in Table~\ref{tab:costs}.
 
 \begin{center}
 \begin{tabular}{ | c | c | }
@@ -25,7 +25,7 @@ The following quantity, merit $M$, is defined with the purpose of evaluating the
 \vspace{-2mm}
 
 \begin{equation}
-  M = \frac{1}{cost \times (gain deviation \times central frequency deviation + 10^{-6})}
+  M = \frac{1}{cost \times (gain deviation + central frequency deviation + 10^{-6})}
 \end{equation}
 
 \vspace{2mm}
@@ -70,5 +70,5 @@ $C_3$ & $220$ $nF$ \\
 \label{tab:components}
 \end{center}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the BandPass Filter, where we develop a model able to predict the output voltage gain, as well as the input and output impedances at the central frequency. Moreover, we get the theoretical frequency response ($v_{out}(f)/v{in}(f))$. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the BandPass Filter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed BandPass Filter.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the BandPass Filter, where we develop a model able to predict the output voltage gain, as well as the input and output impedances at the central frequency. Moreover, we get the theoretical frequency response ($v_{out}(f)/v{in}(f))$. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the BandPass Filter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation.  Furthermore, we present the merit $M$ of the designed BandPass Filter. Finally, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions.
 
