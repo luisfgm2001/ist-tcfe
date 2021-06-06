@@ -37,8 +37,10 @@ With this in mind, we built the circuit illustrated in Figure~\ref{fig:bandpass}
 \begin{figure}[H] \centering
 \includegraphics[width=1\linewidth]{bandpass_filter.pdf}
 \caption{BandPass Filter.}
-\label{fig:bandpass
+\label{fig:bandpass}
 \end{figure}
+
+\vspace{2mm}
 
 \begin{center} 
 \begin{tabular}{ | c | c | }
@@ -47,26 +49,26 @@ With this in mind, we built the circuit illustrated in Figure~\ref{fig:bandpass}
 \hline
 $V_{in}$ & $0.01\sin{(2000\pi t)}$ V \\
 \hline
-$R_1$ & 1 k$\Omega$ \\
+$R_1$ & $1$ $k\Omega$ \\
 \hline
-$R_2$ & 1 k$\Omega$ \\
+$R_2$ & $1$ $k\Omega$ \\
 \hline
-$R_3$ & 100 k$\Omega$ \\
+$R_3$ & $100$ $k\Omega$ \\
 \hline
-$R_4$ & 1 k$\Omega$ \\
+$R_4$ & $1$ $k\Omega$ \\
 \hline
-$R_5$ & 10 k$\Omega$ \\
+$R_5$ & $10$ k$\Omega$ \\
 \hline
-$C_1$ & 220 $nF$ \\
+$C_1$ & $220$ $nF$ \\
 \hline
-$C_2$ & 220 $nF$ \\
+$C_2$ & $220$ $nF$ \\
 \hline
-$C_3$ & 220 $nF$ \\
+$C_3$ & $220$ $nF$ \\
 \hline
 \end{tabular}
 \captionof{table}[]{Values of the components of the circuit.}
 \label{tab:components}
 \end{center}
 
-In Section~\ref{sec:analysis}, we present a theoretical analysis of the BandPass Filter, where we develop a model able to predict the output voltage gain, as well as the input and output impedances at the central frequency. Moreover, we get the theoretical frequency response ($v_{out}(f)/v{in}(f)$. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the BandPass Filter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed BandPass Filter.
+In Section~\ref{sec:analysis}, we present a theoretical analysis of the BandPass Filter, where we develop a model able to predict the output voltage gain, as well as the input and output impedances at the central frequency. Moreover, we get the theoretical frequency response ($v_{out}(f)/v{in}(f))$. In Section~\ref{sec:simulation}, we write an Ngspice script to simulate the BandPass Filter and to measure the aforementioned quantities. Additionally, we compare the results from Section~\ref{sec:analysis} to the ones obtained by simulation. Furthermore, in Section~\ref{sec:conclusion}, we summarise the results of the simulations and their agreement with the theoretical predictions. Finally, we present the merit $M$ of the designed BandPass Filter.
 
