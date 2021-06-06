@@ -10,10 +10,10 @@ all: ngspice.log ngspicezout.log
 	$(eval NGSTABS=$(shell grep _TAB $(word 2,$^) | sed 's/_TAB//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $(word 2,$^) | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
 
-ngspicezout.log: ../sim/t4zout.net
+ngspicezout.log: ../sim/t5zout.net
 	ngspice -b $< -o $@
 
-ngspice.log: ../sim/t4.net
+ngspice.log: ../sim/t5.net
 	ngspice -b $< -o $@
 
 clean:
