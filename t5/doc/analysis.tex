@@ -1,7 +1,7 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:amplifier}, we considered that the OP-AMP is ideal and therefore, its input impedance is infinite and its output impedance is zero. Keeping this in mind, we were able to derive that the input and output impedances of the circuit are:
+In order to analyse theoretically the circuit illustrated in Figure~\ref{fig:bandpass}, we considered that the OP-AMP is ideal and, therefore, its input impedance is infinite and its output impedance is zero. Keeping this in mind, we were able to derive the following equations, respectively, for the input and output impedances of the circuit:
 
 \begin{equation}
 Z_{in}=R_1+\frac{1}{j\omega C_1}
@@ -11,47 +11,54 @@ Z_{in}=R_1+\frac{1}{j\omega C_1}
 Z_{out}=\frac{1}{\frac{1}{R_2}+\frac{j\omega}{\frac{1}{C_2}+\frac{1}{C_3}}}
 \end{equation}
 
-Where $\omega$ is the angular frequency of the input signal.
+\noindent
+where $\omega$ is the angular frequency of the input signal.\\
 
-We were also able to derive the following transfer function:
+In addition, we obtained the following transfer function:
 
 \begin{equation}
-T_f(\omega)=\frac{v_{out}}{v_{in}}=\frac{j\omega R_1 C_1}{1+j\omega R_1 C_1}\times(1+\frac{R_3+R_5}{R_4})\times \frac{1}{1+j\omega R_2 C_2}
+T_f(\omega)=\frac{v_{out}}{v_{in}}=\frac{j\omega R_1 C_1}{1+j\omega R_1 C_1}\times \left(1+\frac{R_3+R_5}{R_4}\right) \times \frac{1}{1+j\omega R_2 C_2}
 \end{equation}
 
-With this transfer function, we obtained the value of the frequency response, $v_{out}(f)/v_{in}(f)$. The plot of the gain and the phase in terms of the frequency of the input signal are presented in Figures~\ref{fig:gainteo} and~\ref{fig:phaseteo}.
+With it, we were able to determine the frequency response, $v_{out}(f)/v_{in}(f)$. The gain and phase plots in terms of the frequency of the input signal are presented in Figures~\ref{fig:gainteo} and~\ref{fig:phaseteo}.
 
-MINIPAGE AQUI OLHA
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
 
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../mat/gainoctave.eps}
-\caption{Frequency Response - Gain}
+\includegraphics[width=1\linewidth]{gainoctave.eps}
+\caption{Frequency Response - Gain.}
 \label{fig:gainteo}
 \end{figure}
 
+\end{minipage}
+\begin{minipage}[c]{0.5\linewidth}
+
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{../mat/phaseoctave.eps}
-\caption{Frequency Response - Phase}
+\includegraphics[width=1\linewidth]{phaseoctave.eps}
+\caption{Frequency Response - Phase.}
 \label{fig:phaseteo}
 \end{figure}
 
-In order to compute the central frequency, we determined the low and high cutoff frequencies, $f_l$ and $f_h$ respectively. Hence, the central frequency, $f_c$, can be given by:
+\end{minipage}
+
+\vspace{4mm}
+
+In order to compute the central frequency, we determined the low and high cutoff frequencies, $f_l$ and $f_h$, respectively. Hence, the central frequency, $f_c$, is given by:
 
 \begin{equation}
-f_c=\sqrt(f_l\times f_h)
+f_c=\sqrt{f_l\times f_h}
 \end{equation}
 
-Finally, we calculated the voltage the gain, the input and output impedances at the central frequency.
-
-The results of the theoretical analysis are presented in Table~\ref{tab:resultsteo}:
+Finally, we calculated the voltage the gain, and the input and output impedances at the central frequency. The results of the theoretical analysis are presented in Table~\ref{tab:resultsteo}.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|r|}
     \hline    
-    \input{../mat/resultsteo}
+    %%\input{../mat/resultsteo}
   \end{tabular}
-  \caption{Results obtained with Octave}
+  \caption{Results obtained with Octave.}
   \label{tab:resultsteo}
 \end{table}
 
